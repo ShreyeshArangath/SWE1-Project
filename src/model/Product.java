@@ -11,13 +11,13 @@ package model;
 public class Product {
     public String itemNumber; 
     public String itemDescription;
-    public Double retailPrice; 
-    public Double discountPercentage; 
-    public Integer availableUnits; 
-    public Boolean needsRestock;
+    public double retailPrice; 
+    public double discountPercentage; 
+    public int availableUnits; 
+    public boolean needsRestock;
     
-    public Product(String itemNumber, String itemDescription, Double retailPrice, 
-            Double discountPercentage, int availableUnits, boolean needsRestock){
+    public Product(String itemNumber, String itemDescription, double retailPrice, 
+            double discountPercentage, int availableUnits, boolean needsRestock){
         this.itemDescription = itemDescription;
         this.itemNumber = itemNumber; 
         this.retailPrice = retailPrice; 
@@ -30,8 +30,48 @@ public class Product {
         return this.itemNumber;
     }
     
-     public String getItemDescription(){
+    public void setItemNumber(String itemNumber) {
+       this.itemNumber = itemNumber; 
+    } 
+    
+    public String getItemDescription(){
         return this.itemDescription;
+    }
+    
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+     
+    public double getRetailPrice () {
+        return this.retailPrice;
+    }
+    
+    public void setRetailPrice(double retailPrice) {
+        this.retailPrice = retailPrice; 
+    }
+    
+    public double getDiscountPercentage(){
+        return this.discountPercentage;
+    }
+    
+    public void setDiscountPercentage(double discountPercentage){
+        this.discountPercentage = discountPercentage;
+    }
+    
+    public int getAvailableUnits() {
+        return this.getAvailableUnits();
+    }
+    
+    public void setAvailableUnits(int availableUnits) {
+        this.availableUnits = availableUnits; 
+    }
+    
+    public boolean getNeedsRestock(){
+        return this.needsRestock;
+    }
+    
+    public void setNeedsRestock(boolean needsRestock) {
+        this.needsRestock = needsRestock;
     }
     
 }
