@@ -8,10 +8,7 @@ package model;
  *
  * @author User
  */
-<<<<<<< HEAD
-public class Check {
-    
-=======
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 public class Check extends PaymentMethod{
@@ -26,5 +23,4 @@ public class Check extends PaymentMethod{
     public UUID getCheckNumber(){
         return this.checkNumber;
     }
->>>>>>> 2bd5f4ba79c6a19349d18f461694a2ec8d276418
 }

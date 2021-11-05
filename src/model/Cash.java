@@ -4,23 +4,18 @@
  */
 package model;
 
-<<<<<<< HEAD
-=======
+
 import java.time.LocalDateTime;
 
->>>>>>> 2bd5f4ba79c6a19349d18f461694a2ec8d276418
 /**
  *
  * @author User
  */
-<<<<<<< HEAD
-public class Cash {
-=======
+
 public class Cash extends PaymentMethod{
     
     public Cash(double amountDue, LocalDateTime time, boolean isSuccessful, double amountPaid) {
         super(amountDue, time, isSuccessful, amountPaid);
     }
->>>>>>> 2bd5f4ba79c6a19349d18f461694a2ec8d276418
     
 }

@@ -8,9 +8,7 @@ package model;
  *
  * @author User
  */
-<<<<<<< HEAD
-public class PaymentMethod {
-=======
+
 import java.time.LocalDateTime;
 public class PaymentMethod {
     private double amountDue;
@@ -49,6 +47,4 @@ public class PaymentMethod {
     public double getAmountPaid(){
         return this.amountPaid;
     }
->>>>>>> 2bd5f4ba79c6a19349d18f461694a2ec8d276418
-    
 }
