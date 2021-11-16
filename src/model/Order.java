@@ -20,10 +20,28 @@ public class Order {
 	private double netTotal;
 	private double discountTotal;
 	private boolean hasPaid;
+        
+        public Order() {
+        }
 	
-	public Order(UUID orderNumber, PaymentMethod paymentMethod, List<Product> itemsOrdered, double subTotal, double netTotal, double discountTotal, boolean hasPaid) {
-		
+	public Order(UUID orderNumber, 
+                PaymentMethod paymentMethod,
+                List<Product> itemsOrdered, 
+                double subTotal, 
+                double netTotal, 
+                double discountTotal, 
+                boolean hasPaid) {
+		this.orderNumber = orderNumber;
+                this.paymentMethod = paymentMethod;
+                this.itemsOrdered = itemsOrdered;
+                this.discountTotal = discountTotal;
+                this.subTotal = subTotal;
+                this.hasPaid = hasPaid;
 	}
+        
+        public List<Product> getItemsOrdered() {
+            return this.itemsOrdered;
+        }
 	
 	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
@@ -72,4 +90,10 @@ public class Order {
 	public boolean getHasPaid() {
 		return this.hasPaid;
 	}
+        
+        public List<Product> addItem(Product product) {
+            this.itemsOrdered.add(product);
+            return this.itemsOrdered;
+        }
+        
 }
