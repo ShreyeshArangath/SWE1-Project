@@ -1,0 +1,4 @@
+itemNumber, itemDescription, retailPrice, discountPercentage, availableUnits, needsRestock
+100, Doritos, 2.30, 0, 100, false
+101, Fritos, 2.00, 0, 100, false 
+102, Lays, 5.30, 15, 10, true 

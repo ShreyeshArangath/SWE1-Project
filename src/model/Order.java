@@ -21,7 +21,8 @@ public class Order {
 	private double discountTotal;
 	private boolean hasPaid;
         
-        public Order() {
+        public Order(UUID orderNumber) {
+            this.orderNumber = orderNumber;
         }
 	
 	public Order(UUID orderNumber, 

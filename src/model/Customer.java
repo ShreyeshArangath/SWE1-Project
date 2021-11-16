@@ -13,9 +13,8 @@ import java.util.List;
  */
 public class Customer {
 
-    public Integer userID;
+    public String userID;
     public String name;
-    public List<Order> orders = new ArrayList<Order>();
     public Integer phoneNumber;
     public Boolean isLoyalCustomer;
     private Integer memberPin;
@@ -23,40 +22,36 @@ public class Customer {
     final private Integer DOES_NOT_EXIST = -1;
 
     // Regular Customer
-    public Customer(Integer userID,
+    public Customer(String userID,
             String name,
-            List<Order> orders,
             Integer phoneNumber,
             Boolean isLoyalCustomer) {
         this.userID = userID;
         this.name = name;
-        this.orders = orders;
         this.phoneNumber = phoneNumber;
         this.isLoyalCustomer = isLoyalCustomer;
     }
 
     // Loyalty Customer
-    public Customer(Integer userID,
+    public Customer(String userID,
             String name,
-            List<Order> orders,
             Integer phoneNumber,
             Boolean isLoyalCustomer,
             Integer memberPin,
             Integer loyaltyPoints) {
         this.userID = userID;
         this.name = name;
-        this.orders = orders;
         this.phoneNumber = phoneNumber;
         this.isLoyalCustomer = isLoyalCustomer;
         this.memberPin = memberPin;
         this.loyaltyPoints = loyaltyPoints;
     }
 
-    public Integer getUserID() {
+    public String getUserID() {
         return this.userID;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userID = userId;
     }
 
@@ -66,18 +61,6 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Order> getOrders() {
-        return this.orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public void addOrder(Order order) {
-        this.orders.add(order);
     }
 
     public Integer getPhoneNumber() {

@@ -60,11 +60,11 @@ public class Checkout {
 
         return customerOrder;
     }
-    
+
     public Customer getCustomer() {
         return this.customer;
     }
-    
+
     public CustomerOrder getCustomerOrder() {
         return this.customerOrder;
     }

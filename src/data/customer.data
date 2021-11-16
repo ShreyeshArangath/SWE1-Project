@@ -1,0 +1,3 @@
+userID, name, phoneNumber, isLoyalCustomer, memberPin, loyaltyPoints
+1, Xi, 999999999, true, 1000, 200
+4, Chi, 999999935, true, 2000, 1000
