@@ -4,6 +4,7 @@
  */
 package controller;
 
+import java.util.UUID;
 import model.*;
 
 /**
@@ -15,10 +16,12 @@ public class Checkout {
     private CustomerOrder customerOrder;
     private InventoryOrder inventoryOrder;
     private Customer customer;
+    public PaymentFlowManager paymentFlowManager;
 
     public Checkout(CustomerOrder order, Customer customer) {
         this.customerOrder = order;
         this.customer = customer;
+        this.paymentFlowManager = new PaymentFlowManager();
     }
 
     public Checkout(InventoryOrder inventoryOrder, Customer customer) {
@@ -67,11 +70,6 @@ public class Checkout {
 
     public CustomerOrder getCustomerOrder() {
         return this.customerOrder;
-    }
-
-    public CustomerOrder processPayment(PaymentMethod paymentMethod) {
-        // TODO: Add paymentMethod pay implementation
-        return customerOrder;
     }
 
 }

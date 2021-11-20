@@ -17,16 +17,21 @@ Flow: cashier is prompted to enter the amount displayed and printed on the recei
 */
 
 public class Cash extends PaymentMethod{
+    private double change; 
     
     public Cash(double amountDue, LocalDateTime time, boolean isSuccessful, double amountPaid) {
         super(amountDue, time, isSuccessful, amountPaid);
     }
     
-    public void getChange(){
-        double change = getAmountDue() - getAmountPaid();
+    public void setAmountDue(){
+        this.change = getAmountDue() - getAmountPaid();
         if(change <= 0){
             setIsSuccessful(true);
         }
-        setAmountDue(change);
+        this.setAmountDue(change); 
+    }
+    
+    public double getChange(){
+        return this.change;
     }
 }

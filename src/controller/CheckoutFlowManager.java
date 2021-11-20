@@ -23,49 +23,69 @@ public class CheckoutFlowManager {
 
     private Checkout controller;
     final private double salesTaxPercentage = 12.1;
-    
+
     public CheckoutFlowManager() {
         // Create a new order
         UUID orderNumber = UUID.randomUUID();
         this.order = new CustomerOrder(orderNumber);
         productDBHelper = new ProductDBHelper();
     }
-    
+
     public void addRegularProduct(String productId) {
         RegularProduct product = (RegularProduct) productDBHelper.getProduct(REGULAR, productId);
         this.order.addToOrder(product);
     }
-    
+
     public void addBulkProduct(String productId, Scale scale) {
         double weight = scale.weighItem();
         BulkProduct product = (BulkProduct) productDBHelper.getProduct(BULK, productId);
         product.setWeight(weight);
         this.order.addToOrder(product);
     }
-    
-    public CustomerOrder getOrder(){
+
+    public CustomerOrder getOrder() {
         return this.order;
     }
-    
+
     /**
-     * 
-     * @param customer
-     * Precondition: Order must be populated with the relevant products
+     *
+     * @param customer Precondition: Order must be populated with the relevant
+     * products
      * @return CustomerOrder object
      */
-    public CheckoutFlowManager process(Customer customer, PaymentMethod paymentMethod) {
+    public CheckoutFlowManager processOrder(Customer customer, String paymentType) {
         this.controller = new Checkout(order, customer);
         this.controller.execute(this.salesTaxPercentage);
-        this.controller.processPayment(paymentMethod);
         
         return this;
     }
-    
-     public static void main(String[] args) {
+
+    public double processCashPayment(double amountDue, double amountPaid) {
+        if (this.controller.paymentFlowManager.PaymentByCash(amountDue, amountPaid)) {
+            return this.controller.paymentFlowManager.getCash().getChange();
+        }
+        return Float.MAX_VALUE;
+    }
+
+    public UUID processCreditCardPayment(Long cardNo, double amountDue, double amountPaid) {
+        return this.controller.paymentFlowManager.PaymentByCreditCard(cardNo, amountDue, amountPaid);
+    }
+
+    public UUID processDebitCardPayment(Long cardNo, int pin, double amountDue, double amountPaid) {
+        return this.controller.paymentFlowManager.PaymentByDebitCard(cardNo, pin, amountDue, amountPaid);
+    }
+
+    public UUID processCheck(double amountDue, double amountPaid) {
+        if (this.controller.paymentFlowManager.PaymentByCheck(amountDue, amountPaid)) {
+            return this.controller.paymentFlowManager.getCheck().getCheckNumber();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
         CheckoutFlowManager manager = new CheckoutFlowManager();
         manager.addBulkProduct("201", new Scale());
         manager.addRegularProduct("101");
         System.out.println(manager.getOrder());
     }
 }
-
