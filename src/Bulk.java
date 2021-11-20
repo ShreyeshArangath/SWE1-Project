@@ -127,10 +127,8 @@ public class Bulk extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Bulk().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Bulk().setVisible(true);
         });
     }
 
@@ -140,4 +138,5 @@ public class Bulk extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+
 }
