@@ -1,0 +1,10 @@
+a, Apples, .30, 0.0, 28, false
+b, Milk, 2.39, 4.0, 37, false
+c, Eggs, 1.99, 3.0, 21, true
+d, Chips, 3.99, 0.0, 13, true
+e, Bread, 2.19, 0.0, 41, false
+f, Water, 2.99, 0.0, 10, true
+g, Meat, 6.99, 6.0, 49, false
+h, Cereal, 1.49, 0.0, 38, false
+i, Cheese, 5.99, 5.0, 21, true
+j, Juice, 4.19, 0.0, 19, true

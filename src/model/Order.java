@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,19 +11,37 @@ import java.util.UUID;
  *
  * @author matth
  */
+
 public class Order {
     private UUID orderNumber;
 	PaymentMethod paymentMethod;
-	List<Product> itemsOrdered = new ArrayList<Product>();
+	List<Product> itemsOrdered;
 	private double subTotal;
 	private double netTotal;
 	private double discountTotal;
 	private boolean hasPaid;
 	
 	public Order(UUID orderNumber, PaymentMethod paymentMethod, List<Product> itemsOrdered, double subTotal, double netTotal, double discountTotal, boolean hasPaid) {
-		
+		this.orderNumber = orderNumber;
+                this.paymentMethod = paymentMethod;
+                this.subTotal = subTotal;
+                this.netTotal = netTotal;
+                this.discountTotal = discountTotal;
+                this.hasPaid = hasPaid;
 	}
-	
+	public void addToOrder(Product product) {
+            boolean result = this.itemsOrdered.add(product);
+            
+            if(result)
+            {
+                System.out.println("Successfully added to list");
+            }
+        }
+        
+        public List<Product> getItemsOrdered() {
+            return this.itemsOrdered;
+        }
+        
 	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
