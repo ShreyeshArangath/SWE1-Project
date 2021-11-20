@@ -14,12 +14,13 @@ import javax.swing.JOptionPane;
 public class GUI extends javax.swing.JFrame {
 
     private Component frame;
-
+    private boolean isFirstItem;
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
+        this.isFirstItem = true;
     }
 
     /**
@@ -41,13 +42,13 @@ public class GUI extends javax.swing.JFrame {
         buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        ItemID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        ScanButton = new javax.swing.JButton();
+        TotalButton = new javax.swing.JButton();
+        ExitButton = new javax.swing.JButton();
+        AddItemButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,9 +92,9 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel2.setText("ITEM-ID:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        ItemID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                ItemIDActionPerformed(evt);
             }
         });
 
@@ -101,31 +102,31 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel4.setText("Scan Barcode:");
 
-        jButton1.setText("Scan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ScanButton.setText("Scan");
+        ScanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ScanButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Total");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        TotalButton.setText("Total");
+        TotalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                TotalButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Exit");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        ExitButton.setText("Exit");
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ExitButtonActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Add Item");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        AddItemButton.setText("Add Item");
+        AddItemButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                AddItemButtonActionPerformed(evt);
             }
         });
 
@@ -137,7 +138,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3))
+                        .addComponent(ExitButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -146,18 +147,18 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(67, 67, 67)
                                         .addComponent(jLabel3))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(TotalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel4)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jButton1))))))
+                                            .addComponent(ScanButton))))))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)))
+                        .addComponent(AddItemButton)))
                 .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -168,32 +169,32 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(ItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AddItemButton))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(ScanButton))
                 .addGap(30, 30, 30)
-                .addComponent(jButton2)
+                .addComponent(TotalButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(ExitButton)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void ItemIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemIDActionPerformed
         // TODO add your handling code here:
-        jTextField2.addActionListener((ActionEvent e) -> {
-            String text = jTextField2.getText();
+        ItemID.addActionListener((ActionEvent e) -> {
+            String text = ItemID.getText();
         });
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_ItemIDActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ScanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanButtonActionPerformed
         // TODO add your handling code here:
         int dialogButton = 0;
         int dialogResult = JOptionPane.showConfirmDialog (null, "Is this the first item?","Warning",dialogButton);
@@ -212,7 +213,7 @@ public class GUI extends javax.swing.JFrame {
             if (JOptionPane.OK_OPTION == 0)
             {
                 GUI jfrm = new GUI();
-                jfrm.setSize(500, 400); 
+                jfrm.setSize(600, 400); 
                 jfrm.setVisible(true);
                 this.setVisible(false);
                 this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
@@ -222,9 +223,9 @@ public class GUI extends javax.swing.JFrame {
         this.setVisible(false);
         this.setDefaultCloseOperation(GUI.DISPOSE_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ScanButtonActionPerformed
       
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void TotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalButtonActionPerformed
         // TODO add your handling code here:
         PaymentMethod jfrm = new PaymentMethod();
         jfrm.setSize(600, 500); 
@@ -232,50 +233,50 @@ public class GUI extends javax.swing.JFrame {
         this.setVisible(false);
         this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_TotalButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         // TODO add your handling code here:
         this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_ExitButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        String text = jTextField2.getText();
-        if (text.startsWith("0-")) 
-            {
-                int dialogButton = 0;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you a Loyal Customer?","Warning",dialogButton);
-                if(dialogResult == JOptionPane.YES_OPTION)
-                {
-                    VerifyCustomer jfrm = new VerifyCustomer();
-                    jfrm.setSize(530, 400);
-                    jfrm.setVisible(true);
-                    jfrm.setLocationRelativeTo(null);
-                    jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    jfrm.setVisible(true);
-                }
-                else if (dialogResult == JOptionPane.NO_OPTION)
-                {
-                JOptionPane.showMessageDialog(frame, "Return to Checkout");
-                }
-            }
-            else if (text.startsWith("1-")) 
-            {
-                Bulk jfrm = new Bulk();                
-                jfrm.setSize(400, 300);
-                jfrm.setVisible(true);
-                jfrm.setLocationRelativeTo(null);
-                jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                jfrm.setVisible(true);
-            }
-            else if (text.startsWith("2-"))
-            {
-                JOptionPane.showMessageDialog(frame, "Item Added.");
-            }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void loyalCustomerPopup() {
+        int dialogButton = 0;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Are you a Loyal Customer?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            VerifyCustomer jfrm = new VerifyCustomer();
+            jfrm.setSize(530, 400);
+            jfrm.setVisible(true);
+            jfrm.setLocationRelativeTo(null);
+            jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jfrm.setVisible(true);
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(frame, "Return to Checkout");
+        }
+    }
     
+    private void AddItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItemButtonActionPerformed
+        // TODO add your handling code here:
+        String text = ItemID.getText();
+        String productId = text.substring(2);
+       
+        if (text.startsWith("1")) {
+            Bulk jfrm = new Bulk();
+            jfrm.setSize(400, 300);
+            jfrm.setVisible(true);
+            jfrm.setLocationRelativeTo(null);
+            jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jfrm.setVisible(true);
+        } else if (text.startsWith("2")) {
+            JOptionPane.showMessageDialog(frame, "Item Added.");
+        }
+        if (this.isFirstItem) {
+            this.loyalCustomerPopup();
+            this.isFirstItem = false;
+        }  
+    }//GEN-LAST:event_AddItemButtonActionPerformed
+  
     /**
      * @param args the command line arguments
      */
@@ -306,14 +307,15 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddItemButton;
+    private javax.swing.JButton ExitButton;
+    private javax.swing.JTextField ItemID;
+    private javax.swing.JButton ScanButton;
+    private javax.swing.JButton TotalButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -322,7 +324,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
     private void Dispose() {

@@ -37,47 +37,47 @@ public class PaymentMethod extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        CashButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        CheckButton = new javax.swing.JButton();
+        CardButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        Subtotal = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Press for Cash");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CashButton.setText("Press for Cash");
+        CashButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CashButtonActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Payment Method");
 
-        jButton3.setText("Press for Check");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        CheckButton.setText("Press for Check");
+        CheckButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                CheckButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Press for Card");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        CardButton.setText("Press for Card");
+        CardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                CardButtonActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Subtotal");
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("jLabel4");
+        Subtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Subtotal.setText("jLabel4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,13 +97,13 @@ public class PaymentMethod extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(CheckButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
@@ -118,21 +118,21 @@ public class PaymentMethod extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(CashButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(CheckButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4))
+                        .addComponent(CardButton))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CashButtonActionPerformed
         // TODO add your handling code here:
         CashPayment jfrm = new CashPayment();
         jfrm.setSize(500, 300); 
@@ -140,9 +140,9 @@ public class PaymentMethod extends javax.swing.JFrame {
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CashButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void CheckButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckButtonActionPerformed
         // TODO add your handling code here:
         CheckPayment jfrm = new CheckPayment();
         jfrm.setSize(300, 300); 
@@ -150,9 +150,9 @@ public class PaymentMethod extends javax.swing.JFrame {
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_CheckButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void CardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CardButtonActionPerformed
         // TODO add your handling code here:
         //CardPayment jfrm = new CardPayment();
         //jfrm.setSize(450, 300); 
@@ -177,7 +177,7 @@ public class PaymentMethod extends javax.swing.JFrame {
             if (JOptionPane.OK_OPTION == 0)
             {
                 CardPayment2 jfrm = new CardPayment2();
-                jfrm.setSize(500, 400); 
+                jfrm.setSize(350, 300); 
                 jfrm.setVisible(true);
                 this.setVisible(false);
                 this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -187,7 +187,7 @@ public class PaymentMethod extends javax.swing.JFrame {
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_CardButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,14 +225,14 @@ public class PaymentMethod extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton CardButton;
+    private javax.swing.JButton CashButton;
+    private javax.swing.JButton CheckButton;
+    private javax.swing.JLabel Subtotal;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
 }
