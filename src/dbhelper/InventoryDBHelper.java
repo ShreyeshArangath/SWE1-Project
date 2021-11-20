@@ -5,47 +5,52 @@
 package dbhelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-//import java.util.Random;
+import java.util.Map;
 import model.*;
 
 /**
  *
  * @author matth
  */
-
 public class InventoryDBHelper {
-    
+
     private Inventory inventory;
+    
+    public InventoryDBHelper() {
+        readInventoryDB();
+    }
     
     public Inventory getInventory(List<Product> product) {
         return this.inventory;
     }
-    
-    public void readInventoryDB() {
-        ReadFileUtil r = new ReadFileUtil("Items.txt");
-        List<List<String>> data = r.readFile();
-        List<Product> products = new ArrayList<Product>();
 
-        data.remove(0);
-        for(List<String> info : data) {
-            String itemNumber = info.get(0);
-            String itemDescription = info.get(1);
-            Double retailPrice = Double.parseDouble(info.get(2));
-            Double discountPercentage = Double.parseDouble(info.get(3));
-            Integer availableUnits = Integer.parseInt(info.get(4));
-            Boolean needsRestock = Boolean.parseBoolean(info.get(5));
-            
-            Product product = new Product(itemNumber, itemDescription, retailPrice, discountPercentage, availableUnits, needsRestock);
+    public void readInventoryDB() {
+        ProductDBHelper dbhelper = new ProductDBHelper();
+        dbhelper.readBulkProductDB();
+        dbhelper.readRegularProductDB();
+        HashMap<String, RegularProduct> regularProduct = dbhelper.getRegularProducts();
+        HashMap<String, BulkProduct> bulkProduct = dbhelper.getBulkProduct();
+
+        List<Product> products = new ArrayList<>();
+        for (Map.Entry<String, RegularProduct> regular : regularProduct.entrySet()) {
+            products.add(regular.getValue());
         }
-        Inventory inventory = new Inventory(products);
-        this.inventory = inventory;
+
+        for (Map.Entry<String, BulkProduct> bulk : bulkProduct.entrySet()) {
+            products.add(bulk.getValue());
+        }
+
+        this.inventory = new Inventory(products);
+
     }
-    
+
     public static void main(String[] args) {
         List<Product> product = new ArrayList<Product>();
         InventoryDBHelper db = new InventoryDBHelper();
-        db.readInventoryDB();
-        System.out.println(db.getInventory(product));
+        db.getInventory(product).itemsAvailable.forEach(x -> {
+            System.out.println(x.getItemDescription());
+        });
     }
 }

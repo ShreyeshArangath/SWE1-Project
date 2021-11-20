@@ -43,7 +43,7 @@ public class ReadFileUtil {
         }
         return values;
     }
-
+    
      public static void main(String[] args) {
 
         ReadFileUtil r = new ReadFileUtil("regular-product.data");

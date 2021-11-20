@@ -18,7 +18,7 @@ public class InventoryRestockManager {
     private List<Product> product;
     private InventoryOrder order;
     private InventoryDBHelper inventoryDBHelper;
-    
+ 
     private Inventory controller;
     
     public InventoryRestockManager() {

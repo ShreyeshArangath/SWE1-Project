@@ -2,6 +2,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -194,24 +195,20 @@ public class GUI extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_ItemIDActionPerformed
 
-    private void ScanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanButtonActionPerformed
+    private void ScanButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
         int dialogButton = 0;
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Is this the first item?","Warning",dialogButton);
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Is this the first item?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             VerifyCustomer2 jfrm = new VerifyCustomer2();
             jfrm.setSize(530, 400);
             jfrm.setVisible(true);
             jfrm.setLocationRelativeTo(null);
             jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jfrm.setVisible(true);
-        }
-        else if (dialogResult == JOptionPane.NO_OPTION)
-        {
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Continue with Checkout.");
-            if (JOptionPane.OK_OPTION == 0)
-            {
+            if (JOptionPane.OK_OPTION == 0) {
                 GUI jfrm = new GUI();
                 jfrm.setSize(600, 400); 
                 jfrm.setVisible(true);
@@ -223,12 +220,13 @@ public class GUI extends javax.swing.JFrame {
         this.setVisible(false);
         this.setDefaultCloseOperation(GUI.DISPOSE_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_ScanButtonActionPerformed
+    }                                          
       
     private void TotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalButtonActionPerformed
+
         // TODO add your handling code here:
         PaymentMethod jfrm = new PaymentMethod();
-        jfrm.setSize(600, 500); 
+        jfrm.setSize(600, 500);
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
@@ -256,7 +254,7 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    private void AddItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItemButtonActionPerformed
+    private void AddItemButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
         String text = ItemID.getText();
         String productId = text.substring(2);
@@ -275,7 +273,7 @@ public class GUI extends javax.swing.JFrame {
             this.loyalCustomerPopup();
             this.isFirstItem = false;
         }  
-    }//GEN-LAST:event_AddItemButtonActionPerformed
+    }                                             
   
     /**
      * @param args the command line arguments
@@ -297,7 +295,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */

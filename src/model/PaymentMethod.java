@@ -8,46 +8,55 @@ package model;
  *
  * @author User
  */
-
 import java.time.LocalDateTime;
+
 public class PaymentMethod {
+
     private double amountDue;
     private LocalDateTime time;
     private boolean isSuccessful;
     private double amountPaid;
-    
-    public PaymentMethod(double amountDue, LocalDateTime time, boolean isSuccessful, double amountPaid){
-       this.amountDue = amountDue;
-       this.time = time; 
-       this.isSuccessful = isSuccessful; 
-       this.amountPaid = amountPaid;
+
+    public PaymentMethod(double amountDue, LocalDateTime time, boolean isSuccessful, double amountPaid) {
+        this.amountDue = amountDue;
+        this.time = time;
+        this.isSuccessful = isSuccessful;
+        this.amountPaid = amountPaid;
     }
-    public PaymentMethod(){
-        
-    };
-    
-    public void setAmountDue(double amountDue){
+
+    public PaymentMethod() {
+
+    }
+
+    public void setAmountDue(double amountDue) {
         this.amountDue = amountDue;
     }
-    public double getAmountDue(){
+
+    public double getAmountDue() {
         return this.amountDue;
     }
-    public void setTime(LocalDateTime time){
-        this.time=time;
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
-    public LocalDateTime getTime(){
+
+    public LocalDateTime getTime() {
         return this.time;
     }
-    public void setIsSuccessful(boolean isSuccessful){
-        this.isSuccessful = isSuccessful;      
+
+    public void setIsSuccessful(boolean isSuccessful) {
+        this.isSuccessful = isSuccessful;
     }
-    public boolean getIsSuccessful(){
+
+    public boolean getIsSuccessful() {
         return this.isSuccessful;
     }
-    public void setAmountPaid(double amountPaid){
-        this.amountPaid= amountPaid;
+
+    public void setAmountPaid(double amountPaid) {
+        this.amountPaid = amountPaid;
     }
-    public double getAmountPaid(){
+
+    public double getAmountPaid() {
         return this.amountPaid;
     }
 }

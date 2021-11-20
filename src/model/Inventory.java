@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  */
 
 public class Inventory {
-    List<Product> itemsAvailable;
+    public List<Product> itemsAvailable;
     
     //product below threshold requires restock
     static int threshold = 25;
