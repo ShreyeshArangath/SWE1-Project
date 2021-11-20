@@ -9,6 +9,14 @@ package model;
  * @author User
  */
 
+
+/*
+Flow:check is scanned by the check reader
+check verified by the system
+if check is acceptd, the cashier is prompted to place it in he receipt printer
+a line containing date, time, store identity, cashier identity, and order number are printed on the check
+
+*/
 import java.time.LocalDateTime;
 import java.util.UUID;
 public class Check extends PaymentMethod{
@@ -16,6 +24,7 @@ public class Check extends PaymentMethod{
 
     public Check(double amountDue, LocalDateTime time, boolean isSuccessful, double amountPaid, UUID checkNumber) {
         super(amountDue, time, isSuccessful, amountPaid);
+        this.checkNumber = checkNumber;
     }
     public void setCheckNumber(UUID checkNumber){
         this.checkNumber = checkNumber;
