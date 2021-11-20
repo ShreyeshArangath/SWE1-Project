@@ -4,6 +4,7 @@
  */
 package model;
 
+import dbhelper.CardDBHelper;
 import java.util.UUID;
 
 /**
@@ -11,8 +12,11 @@ import java.util.UUID;
  * @author User
  */
 public class Bank {
-    CreditCard creditCards = new CreditCard();
-    DebitCard1 debitCards = new DebitCard1();
+    
+    
+    private CardDBHelper cardDBHelper;
+    //CreditCard creditCards = new CreditCard();
+   // DebitCard1 debitCards = new DebitCard1();
     
     
     /*
@@ -24,9 +28,10 @@ public class Bank {
         UUID uuid; 
         for(int i = 0; i<3; i++)
         {
-            if(cardNumber == debitCards.debitCards[i][0])
+            if(cardNumber == cardDBHelper.getCard("debit", cardNumber).getCardNumber())
             {
-                if(pin == debitCards.debitCards[i][1]){
+                DebitCard debitCard = (DebitCard)cardDBHelper.getCard("debit",cardNumber);
+                if(pin == debitCard.getPinNumber()){
                     uuid = UUID.randomUUID();
                     return uuid;
                 }
@@ -45,7 +50,7 @@ public class Bank {
         UUID uuid;
         for(int i = 0; i<3; i++)
         {
-            if(cardNumber == creditCards.creditCards[i])
+            if(cardNumber == cardDBHelper.getCard("debit", cardNumber).getCardNumber())
             {
                 uuid = UUID.randomUUID();
                 return uuid;

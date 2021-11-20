@@ -21,20 +21,34 @@ public class PaymentFlowManager {
     private DebitCard debitCard;
     private Check check;
     LocalDateTime now;
+    UUID uuid = UUID.randomUUID();
     
-    public double PaymentByCash(double amountDue, double amountPaid){
+    public boolean PaymentByCash(double amountDue, double amountPaid){
         this.cash = new Cash(amountDue, now.now(), false, amountPaid);
-        return cash.getChange();
+        cash.getChange();
+        return cash.getIsSuccessful();
     }
     
-    public void PaymentByCreditCard(){
-        
+    public UUID PaymentByCreditCard(long CardNumber, double amountDue, double amountPaid){
+        this.creditCard = new Card(amountDue, now.now(),false,amountPaid, CardNumber);
+        return creditCard.authorizeCredit();        
     }
     
-    public void PaymentByDebitCard(){
+    public UUID PaymentByDebitCard(long CardNumber, int pin, double amountDue, double amountPaid){
+        this.debitCard = new DebitCard(amountDue, now.now(), false,amountPaid,CardNumber, pin);
+        return debitCard.authorizeDebit();
         
     }
-    public void PaymentByCheck(){
+    public boolean PaymentByCheck(double amountDue, double amountPaid){
+        CheckReader checkReader = new CheckReader();
+        check = new Check(amountDue,now.now(),false,amountPaid, uuid);
+        boolean result = checkReader.scanCheck(check);
+        if(result == true)
+        {
+            check.setIsSuccessful(result);
+            return result;
+        }
+        return result;
         
     }
     

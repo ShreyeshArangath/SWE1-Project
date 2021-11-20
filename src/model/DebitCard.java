@@ -35,7 +35,14 @@ public class DebitCard extends Card {
     */
     public UUID authorizeDebit()
     {
+        
+        UUID zero = new UUID(0,0);
         Bank bank = new Bank();
-        return bank.isValid(this.cardNumber,this.pin);
+        UUID uuid = bank.isValid(this.cardNumber,this.pin);
+        if(uuid.compareTo(zero) != 0){
+            setIsSuccessful(true);
+            return uuid;
+        }
+        return uuid;
     }
 }

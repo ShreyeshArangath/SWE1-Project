@@ -22,7 +22,11 @@ public class Cash extends PaymentMethod{
         super(amountDue, time, isSuccessful, amountPaid);
     }
     
-    public double getChange(){
-        return (getAmountDue() - getAmountPaid());
+    public void getChange(){
+        double change = getAmountDue() - getAmountPaid();
+        if(change <= 0){
+            setIsSuccessful(true);
+        }
+        setAmountDue(change);
     }
 }
