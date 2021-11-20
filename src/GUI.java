@@ -47,6 +47,7 @@ public class GUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,35 +122,43 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("Add Item");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(126, 126, 126))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton1)))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(67, 67, 67)
+                                        .addComponent(jLabel3))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jButton1))))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5)))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +168,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -180,37 +190,6 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTextField2.addActionListener((ActionEvent e) -> {
             String text = jTextField2.getText();
-            if (text.startsWith("0-")) 
-            {
-                int dialogButton = 0;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you a Loyal Customer?","Warning",dialogButton);
-                if(dialogResult == JOptionPane.YES_OPTION)
-                {
-                    VerifyCustomer jfrm = new VerifyCustomer();
-                    jfrm.setSize(530, 400);
-                    jfrm.setVisible(true);
-                    jfrm.setLocationRelativeTo(null);
-                    jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    jfrm.setVisible(true);
-                }
-                else if (dialogResult == JOptionPane.NO_OPTION)
-                {
-                JOptionPane.showMessageDialog(frame, "Return to Checkout");
-                }
-            }
-            if (text.startsWith("1-")) 
-            {
-                Bulk jfrm = new Bulk();                
-                jfrm.setSize(400, 300);
-                jfrm.setVisible(true);
-                jfrm.setLocationRelativeTo(null);
-                jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                jfrm.setVisible(true);
-            }
-            else if (text.startsWith("2-"))
-            {
-                JOptionPane.showMessageDialog(frame, "Item Added.");
-            }
         });
     }//GEN-LAST:event_jTextField2ActionPerformed
 
@@ -236,12 +215,12 @@ public class GUI extends javax.swing.JFrame {
                 jfrm.setSize(500, 400); 
                 jfrm.setVisible(true);
                 this.setVisible(false);
-                this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+                this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
                 this.dispose();
             }
         }
         this.setVisible(false);
-        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(GUI.DISPOSE_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
       
@@ -251,15 +230,51 @@ public class GUI extends javax.swing.JFrame {
         jfrm.setSize(600, 500); 
         jfrm.setVisible(true);
         this.setVisible(false);
-        this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        String text = jTextField2.getText();
+        if (text.startsWith("0-")) 
+            {
+                int dialogButton = 0;
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you a Loyal Customer?","Warning",dialogButton);
+                if(dialogResult == JOptionPane.YES_OPTION)
+                {
+                    VerifyCustomer jfrm = new VerifyCustomer();
+                    jfrm.setSize(530, 400);
+                    jfrm.setVisible(true);
+                    jfrm.setLocationRelativeTo(null);
+                    jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    jfrm.setVisible(true);
+                }
+                else if (dialogResult == JOptionPane.NO_OPTION)
+                {
+                JOptionPane.showMessageDialog(frame, "Return to Checkout");
+                }
+            }
+            else if (text.startsWith("1-")) 
+            {
+                Bulk jfrm = new Bulk();                
+                jfrm.setSize(400, 300);
+                jfrm.setVisible(true);
+                jfrm.setLocationRelativeTo(null);
+                jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                jfrm.setVisible(true);
+            }
+            else if (text.startsWith("2-"))
+            {
+                JOptionPane.showMessageDialog(frame, "Item Added.");
+            }
+    }//GEN-LAST:event_jButton5ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -298,6 +313,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -308,5 +324,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    private void Dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

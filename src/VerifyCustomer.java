@@ -133,10 +133,8 @@ public class VerifyCustomer extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VerifyCustomer().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VerifyCustomer().setVisible(true);
         });
     }
 
@@ -149,4 +147,5 @@ public class VerifyCustomer extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
 }
