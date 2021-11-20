@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dbhelper;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -21,7 +20,7 @@ public class ReadFileUtil {
     public ReadFileUtil(String fileName){
         path = Paths.get("src/data", fileName);
     }
-    
+
     public List<List<String>> readFile(){
         List<List<String>> records = new ArrayList<>();
         String path = this.path.toString();
@@ -49,5 +48,6 @@ public class ReadFileUtil {
 
         ReadFileUtil r = new ReadFileUtil("regular-product.data");
         System.out.println(r.readFile());
+
     }
 }
