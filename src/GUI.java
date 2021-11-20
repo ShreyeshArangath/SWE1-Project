@@ -2,6 +2,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,12 +15,14 @@ import javax.swing.JOptionPane;
 public class GUI extends javax.swing.JFrame {
 
     private Component frame;
+    private boolean isFirstItem;
 
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
+        this.isFirstItem = true;
     }
 
     /**
@@ -196,23 +199,19 @@ public class GUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int dialogButton = 0;
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Is this the first item?","Warning",dialogButton);
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Is this the first item?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             VerifyCustomer2 jfrm = new VerifyCustomer2();
             jfrm.setSize(530, 400);
             jfrm.setVisible(true);
             jfrm.setLocationRelativeTo(null);
             jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jfrm.setVisible(true);
-        }
-        else if (dialogResult == JOptionPane.NO_OPTION)
-        {
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Continue with Checkout.");
-            if (JOptionPane.OK_OPTION == 0)
-            {
+            if (JOptionPane.OK_OPTION == 0) {
                 GUI jfrm = new GUI();
-                jfrm.setSize(500, 400); 
+                jfrm.setSize(500, 400);
                 jfrm.setVisible(true);
                 this.setVisible(false);
                 this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
@@ -223,11 +222,11 @@ public class GUI extends javax.swing.JFrame {
         this.setDefaultCloseOperation(GUI.DISPOSE_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-      
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         PaymentMethod jfrm = new PaymentMethod();
-        jfrm.setSize(600, 500); 
+        jfrm.setSize(600, 500);
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
@@ -240,42 +239,42 @@ public class GUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void loyalCustomerPopup() {
+        int dialogButton = 0;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Are you a Loyal Customer?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            VerifyCustomer jfrm = new VerifyCustomer();
+            jfrm.setSize(530, 400);
+            jfrm.setVisible(true);
+            jfrm.setLocationRelativeTo(null);
+            jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jfrm.setVisible(true);
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(frame, "Return to Checkout");
+        }
+    }
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         String text = jTextField2.getText();
-        if (text.startsWith("0-")) 
-            {
-                int dialogButton = 0;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you a Loyal Customer?","Warning",dialogButton);
-                if(dialogResult == JOptionPane.YES_OPTION)
-                {
-                    VerifyCustomer jfrm = new VerifyCustomer();
-                    jfrm.setSize(530, 400);
-                    jfrm.setVisible(true);
-                    jfrm.setLocationRelativeTo(null);
-                    jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    jfrm.setVisible(true);
-                }
-                else if (dialogResult == JOptionPane.NO_OPTION)
-                {
-                JOptionPane.showMessageDialog(frame, "Return to Checkout");
-                }
-            }
-            else if (text.startsWith("1-")) 
-            {
-                Bulk jfrm = new Bulk();                
-                jfrm.setSize(400, 300);
-                jfrm.setVisible(true);
-                jfrm.setLocationRelativeTo(null);
-                jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                jfrm.setVisible(true);
-            }
-            else if (text.startsWith("2-"))
-            {
-                JOptionPane.showMessageDialog(frame, "Item Added.");
-            }
+        String productId = text.substring(2);
+        
+        if (text.startsWith("1")) {
+            Bulk jfrm = new Bulk();
+            jfrm.setSize(400, 300);
+            jfrm.setVisible(true);
+            jfrm.setLocationRelativeTo(null);
+            jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jfrm.setVisible(true);
+        } else if (text.startsWith("2")) {
+            JOptionPane.showMessageDialog(frame, "Item Added.");
+        }
+        if (this.isFirstItem) {
+            this.loyalCustomerPopup();
+            this.isFirstItem = false;
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
@@ -296,7 +295,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */

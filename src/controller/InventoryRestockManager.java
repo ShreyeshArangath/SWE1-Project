@@ -18,13 +18,12 @@ public class InventoryRestockManager {
     private List<Product> product;
     private InventoryOrder order;
     private InventoryDBHelper inventoryDBHelper;
-    
+ 
     private Inventory controller;
     
     public InventoryRestockManager() {
         this.product = product;
         inventoryDBHelper = new InventoryDBHelper();
-//        this.inventory = inventoryDBHelper.getInventory();
     }
     
     public InventoryOrder getInventoryOrder() {
