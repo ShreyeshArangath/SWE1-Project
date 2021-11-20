@@ -33,8 +33,8 @@ public class Bulk extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        ItemWeight = new javax.swing.JLabel();
+        ScaleButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,12 +43,12 @@ public class Bulk extends javax.swing.JFrame {
 
         jLabel2.setText("Item Weight:");
 
-        jLabel3.setText("jLabel3");
+        ItemWeight.setText("jLabel3");
 
-        jButton1.setText("SCALE");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ScaleButton.setText("SCALE");
+        ScaleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ScaleButtonActionPerformed(evt);
             }
         });
 
@@ -65,10 +65,10 @@ public class Bulk extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(ItemWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ScaleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -79,16 +79,16 @@ public class Bulk extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(ItemWeight))
                 .addGap(33, 33, 33)
-                .addComponent(jButton1)
+                .addComponent(ScaleButton)
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ScaleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScaleButtonActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(frame, "Scale Complete. Return to Checkout.");
         if (JOptionPane.OK_OPTION == 0)
@@ -97,7 +97,7 @@ public class Bulk extends javax.swing.JFrame {
                 this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
                 this.dispose();
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ScaleButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,10 +133,10 @@ public class Bulk extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel ItemWeight;
+    private javax.swing.JButton ScaleButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
 }
