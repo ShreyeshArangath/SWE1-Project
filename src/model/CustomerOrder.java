@@ -11,6 +11,7 @@ import java.util.UUID;
  *
  * @author matth
  */
+
 public class CustomerOrder extends Order {
     public CustomerOrder(UUID orderNumber, PaymentMethod paymentMethod, List<Product> itemsOrdered, double subTotal, double netTotal, double discountTotal, boolean hasPaid) {
 		super(orderNumber, paymentMethod, itemsOrdered, discountTotal, discountTotal, discountTotal, hasPaid);
