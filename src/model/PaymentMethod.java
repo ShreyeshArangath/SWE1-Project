@@ -22,6 +22,9 @@ public class PaymentMethod {
        this.isSuccessful = isSuccessful; 
        this.amountPaid = amountPaid;
     }
+    public PaymentMethod(){
+        
+    };
     
     public void setAmountDue(double amountDue){
         this.amountDue = amountDue;

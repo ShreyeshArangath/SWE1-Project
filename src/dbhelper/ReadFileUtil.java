@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dbhelper;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -14,46 +13,41 @@ import java.util.Scanner;
 
 /**
  *
- * @author matth
+ * @author shreyesh
  */
-
 public class ReadFileUtil {
     private Path path;
-    
-    public ReadFileUtil(String file) {
-        path = Paths.get("src/data", file);
+    public ReadFileUtil(String fileName){
+        path = Paths.get("src/data", fileName);
     }
-    
-    public List<List<String>> readFile() {
-        List<List<String>> info = new ArrayList<>();
+
+    public List<List<String>> readFile(){
+        List<List<String>> records = new ArrayList<>();
         String path = this.path.toString();
-        
         try (Scanner scanner = new Scanner(new File(path))) {
-            while(scanner.hasNextLine()) {
-                info.add(getInfoFromLine(scanner.nextLine()));
+            while (scanner.hasNextLine()) {
+                records.add(getRecordFromLine(scanner.nextLine()));
             }
         }
-        catch (FileNotFoundException e) {
-            
-        }
-        return info;
+        catch (FileNotFoundException ex) {}
+        return records;
     }
-    
-    private List<String> getInfoFromLine(String line) {
-        List<String> value = new ArrayList<String>();
-        
-        try (Scanner rowScan = new Scanner(line)) {
-            rowScan.useDelimiter(",");
-            
-            while(rowScan.hasNext()) {
-                value.add(rowScan.next().strip());
+
+    private List<String> getRecordFromLine(String line) {
+        List<String> values = new ArrayList<String>();
+        try (Scanner rowScanner = new Scanner(line)) {
+            rowScanner.useDelimiter(",");
+            while (rowScanner.hasNext()) {
+                values.add(rowScanner.next().strip());
             }
         }
-        return value;
+        return values;
     }
-    
-    public static void main(String[] args) {
-        ReadFileUtil read = new ReadFileUtil("Items.txt");
-        System.out.println(read.readFile());
+
+     public static void main(String[] args) {
+
+        ReadFileUtil r = new ReadFileUtil("regular-product.data");
+        System.out.println(r.readFile());
+
     }
 }
