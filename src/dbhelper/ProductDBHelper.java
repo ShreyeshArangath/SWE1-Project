@@ -44,6 +44,14 @@ public class ProductDBHelper {
 
         return null;
     }
+    
+    public HashMap<String, RegularProduct> getRegularProducts() {
+        return this.regularProducts;
+    }
+    
+    public HashMap<String, BulkProduct> getBulkProduct() {
+        return this.bulkProducts;
+    }
 
     public void readRegularProductDB() {
         ReadFileUtil r = new ReadFileUtil("regular-product.data");
@@ -97,5 +105,7 @@ public class ProductDBHelper {
         System.out.println(db.getProduct("BULK", "-1"));
         BulkProduct product = (BulkProduct) db.getProduct("BULK", "-1");
         System.out.println(db.isDefault(product));
+        
+        
     }
 }

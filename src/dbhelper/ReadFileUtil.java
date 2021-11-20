@@ -49,6 +49,5 @@ public class ReadFileUtil {
 
         ReadFileUtil r = new ReadFileUtil("regular-product.data");
         System.out.println(r.readFile());
-
     }
 }

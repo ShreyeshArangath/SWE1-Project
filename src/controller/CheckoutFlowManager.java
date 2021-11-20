@@ -33,14 +33,14 @@ public class CheckoutFlowManager {
     
     public void addRegularProduct(String productId) {
         RegularProduct product = (RegularProduct) productDBHelper.getProduct(REGULAR, productId);
-        this.order.addItem(product);
+        this.order.addToOrder(product);
     }
     
     public void addBulkProduct(String productId, Scale scale) {
         double weight = scale.weighItem();
         BulkProduct product = (BulkProduct) productDBHelper.getProduct(BULK, productId);
         product.setWeight(weight);
-        this.order.addItem(product);
+        this.order.addToOrder(product);
     }
     
     public CustomerOrder getOrder(){

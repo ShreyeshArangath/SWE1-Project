@@ -78,5 +78,4 @@ public class Product {
     public void setNeedsRestock(Boolean needsRestock) {
         this.needsRestock = needsRestock;
     }
-
 }

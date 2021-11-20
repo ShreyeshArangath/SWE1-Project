@@ -12,13 +12,15 @@ import java.util.UUID;
  * @author matth
  */
 public class InventoryOrder extends Order {
-    public InventoryOrder(UUID orderNumber,
-            PaymentMethod paymentMethod, 
-            List<Product> itemsOrdered, 
-            double subTotal, 
-            double netTotal, 
-            double discountTotal, 
-            boolean hasPaid) {
-            super(orderNumber, paymentMethod, itemsOrdered, discountTotal, discountTotal, discountTotal, hasPaid);   
-	}
+
+    OrderTimer timer;
+
+    public InventoryOrder(UUID orderNumber, PaymentMethod paymentMethod, List<Product> itemsOrdered, double subTotal, double netTotal, double discountTotal, boolean hasPaid) {
+        super(orderNumber, paymentMethod, itemsOrdered, discountTotal, discountTotal, discountTotal, hasPaid);
+    }
+
+    public void setInventoryOrder() {
+        timer = new OrderTimer(300);
+        //System.out.println("Inventory order will be sent to supplier in 5 minutes.");
+    }
 }

@@ -1,3 +1,7 @@
+
+import java.awt.Component;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,6 +12,8 @@
  * @author cgonz
  */
 public class Receipt3 extends javax.swing.JFrame {
+
+    private Component frame;
 
     /**
      * Creates new form Receipt3
@@ -146,7 +152,28 @@ public class Receipt3 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        int dialogButton = 0;
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to return to Checkout?","Thanks for Shopping!",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION)
+        {
+            GUI jfrm = new GUI();
+            jfrm.setSize(500, 400); 
+            jfrm.setVisible(true);
+            this.setVisible(false);
+            this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+            this.dispose();
+        }
+        else if (dialogResult == JOptionPane.NO_OPTION)
+        {
+            JOptionPane.showMessageDialog(frame, "Thanks for Shopping!");
+            if (JOptionPane.OK_OPTION == 0)
+            {
+                this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+                this.dispose();
+            }
+        }
+        this.setVisible(false);
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
