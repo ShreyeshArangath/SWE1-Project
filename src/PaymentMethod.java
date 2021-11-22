@@ -3,6 +3,9 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import controller.*;
+import dbhelper.CustomerDBHelper;
+import model.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,7 +17,8 @@ import javax.swing.JOptionPane;
  * @author cgonz
  */
 public class PaymentMethod extends javax.swing.JFrame {
-
+    public CheckoutFlowManager checkoutFlowManager;
+    
     static void addActionListener(ActionListener actionListener) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -23,8 +27,16 @@ public class PaymentMethod extends javax.swing.JFrame {
     /**
      * Creates new form CashPayment
      */
-    public PaymentMethod() {
+    public PaymentMethod(CheckoutFlowManager checkoutFlowManager, int phoneNumber, int memberPin) {
         initComponents();
+        this.checkoutFlowManager = checkoutFlowManager;
+        CustomerDBHelper customerDB = new CustomerDBHelper();
+        Customer customer = customerDB.getCustomer(phoneNumber, memberPin);
+        this.checkoutFlowManager.processOrder(customer);
+        
+        // TODO: Show the total 
+        Double netTotal = this.checkoutFlowManager.getOrder().setNetTotal();
+        Subtotal.setText("Subtotal: $" + String.format("%.2f", netTotal));
     }
 
     /**
@@ -42,7 +54,6 @@ public class PaymentMethod extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         CheckButton = new javax.swing.JButton();
         CardButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         Subtotal = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
@@ -73,9 +84,6 @@ public class PaymentMethod extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Subtotal");
-
         Subtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Subtotal.setText("jLabel4");
 
@@ -86,9 +94,7 @@ public class PaymentMethod extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(142, 142, 142))
+                .addGap(142, 388, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -110,9 +116,7 @@ public class PaymentMethod extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -134,7 +138,7 @@ public class PaymentMethod extends javax.swing.JFrame {
 
     private void CashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CashButtonActionPerformed
         // TODO add your handling code here:
-        CashPayment jfrm = new CashPayment();
+        CashPayment jfrm = new CashPayment(this.checkoutFlowManager);
         jfrm.setSize(500, 300); 
         jfrm.setVisible(true);
         this.setVisible(false);
@@ -144,7 +148,7 @@ public class PaymentMethod extends javax.swing.JFrame {
 
     private void CheckButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckButtonActionPerformed
         // TODO add your handling code here:
-        CheckPayment jfrm = new CheckPayment();
+        CheckPayment jfrm = new CheckPayment(this.checkoutFlowManager);
         jfrm.setSize(300, 300); 
         jfrm.setVisible(true);
         this.setVisible(false);
@@ -154,17 +158,11 @@ public class PaymentMethod extends javax.swing.JFrame {
 
     private void CardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CardButtonActionPerformed
         // TODO add your handling code here:
-        //CardPayment jfrm = new CardPayment();
-        //jfrm.setSize(450, 300); 
-        //jfrm.setVisible(true);
-        //this.setVisible(false);
-        //this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
-        //this.dispose();
         int dialogButton = 0;
         int dialogResult = JOptionPane.showConfirmDialog (null, "Are you paying with Debit?","Warning",dialogButton);
         if(dialogResult == JOptionPane.YES_OPTION)
         {
-            CardPayment jfrm = new CardPayment();
+            CardPayment jfrm = new CardPayment(this.checkoutFlowManager);
             jfrm.setSize(530, 400);
             jfrm.setVisible(true);
             jfrm.setLocationRelativeTo(null);
@@ -176,7 +174,7 @@ public class PaymentMethod extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, "Continue with Checkout.");
             if (JOptionPane.OK_OPTION == 0)
             {
-                CardPayment2 jfrm = new CardPayment2();
+                CardPayment2 jfrm = new CardPayment2(this.checkoutFlowManager);
                 jfrm.setSize(350, 300); 
                 jfrm.setVisible(true);
                 this.setVisible(false);
@@ -219,7 +217,8 @@ public class PaymentMethod extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CashPayment().setVisible(true);
+               CheckoutFlowManager checkoutFlowManager = new CheckoutFlowManager();
+                new CashPayment(checkoutFlowManager).setVisible(true);
             }
         });
     }
@@ -232,7 +231,6 @@ public class PaymentMethod extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
 }

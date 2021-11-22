@@ -6,6 +6,7 @@ package controller;
 
 import dbhelper.*;
 import interfaces.*;
+import java.util.ArrayList;
 import java.util.List;
 import model.*;
 
@@ -13,30 +14,53 @@ import model.*;
  *
  * @author matth
  */
-
 public class InventoryRestockManager {
+
     private List<Product> product;
     private InventoryOrder order;
     private InventoryDBHelper inventoryDBHelper;
- 
+    private ProductDBHelper productDBHelper;
+
+    // ASSUMPTION: Threshold value and restock value are constant for each product 
+    private int THRESHOLD = 5;
+    private int RESTOCK_VALUE = 20;
+
     private Inventory controller;
-    
-    public InventoryRestockManager() {
+
+    public InventoryRestockManager(ProductDBHelper productDBHelper) {
         this.product = product;
+        this.productDBHelper = productDBHelper;
         inventoryDBHelper = new InventoryDBHelper();
     }
-    
+
     public InventoryOrder getInventoryOrder() {
         return this.order;
     }
-    
-    public InventoryRestockManager process (CustomerOrder order, Product product) {
-        this.controller = new Inventory(this.product);
-        return this;
+
+    public List<Product> restockInventory() {
+        List<Product> restockedProducts = new ArrayList<>();
+        for (RegularProduct regProd : this.productDBHelper.getRegularProducts().values()) {
+            if (regProd.availableUnits <= THRESHOLD) {
+                regProd.availableUnits = RESTOCK_VALUE;
+                restockedProducts.add(regProd);
+            }
+        }
+
+        for (BulkProduct bulkProd : this.productDBHelper.getBulkProducts().values()) {
+            if (bulkProd.availableUnits <= THRESHOLD) {
+                bulkProd.availableUnits = RESTOCK_VALUE;
+                restockedProducts.add(bulkProd);
+            }
+        }
+
+        return restockedProducts;
     }
-    
+
     public static void main(String[] args) {
-        InventoryRestockManager manager = new InventoryRestockManager();
+        ProductDBHelper db = new ProductDBHelper();
+        db.readBulkProductDB();
+        db.readRegularProductDB();
+        InventoryRestockManager manager = new InventoryRestockManager(db);
         System.out.println(manager.getInventoryOrder());
     }
 }

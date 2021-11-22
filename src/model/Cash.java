@@ -24,8 +24,8 @@ public class Cash extends PaymentMethod{
     }
     
     public void setAmountDue(){
-        this.change = getAmountDue() - getAmountPaid();
-        if(change <= 0){
+        this.change = -getAmountDue() + getAmountPaid();
+        if(change >= 0){
             setIsSuccessful(true);
         }
         this.setAmountDue(change); 

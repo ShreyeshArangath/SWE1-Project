@@ -18,6 +18,7 @@ import model.*;
 public class PaymentFlowManager {
 
     private PaymentMethod paymentMethod;
+    private Bank bank;
     private Cash cash;
     private Card creditCard;
     private DebitCard debitCard;
@@ -25,6 +26,11 @@ public class PaymentFlowManager {
     LocalDateTime now;
     UUID uuid = UUID.randomUUID();
 
+    public PaymentFlowManager(){
+        this.bank = new Bank();
+    }
+    
+    
     public Cash getCash() {
         return this.cash;
     }

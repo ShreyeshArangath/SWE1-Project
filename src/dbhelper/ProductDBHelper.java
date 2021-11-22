@@ -5,6 +5,7 @@
 package dbhelper;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -49,7 +50,7 @@ public class ProductDBHelper {
         return this.regularProducts;
     }
     
-    public HashMap<String, BulkProduct> getBulkProduct() {
+    public HashMap<String, BulkProduct> getBulkProducts() {
         return this.bulkProducts;
     }
 
@@ -58,7 +59,6 @@ public class ProductDBHelper {
         List<List<String>> data = r.readFile();
         this.regularProducts = new HashMap<>();
 
-        // itemNumber, itemDescription, retailPrice, discountPercentage, availableUnits, needsRestock
         data.remove(0);
         for (List<String> record : data) {
             String itemNumber = record.get(0);
@@ -79,8 +79,6 @@ public class ProductDBHelper {
         List<List<String>> data = r.readFile();
 
         this.bulkProducts = new HashMap<>();
-
-        // itemNumber, itemDescription, retailPrice, discountPercentage, availableUnits, needsRestock, pricePerUnit
         data.remove(0);
         for (List<String> record : data) {
             String itemNumber = record.get(0);
@@ -96,16 +94,72 @@ public class ProductDBHelper {
         }
 
     }
+   
+    public void updateDB(){
+        this.updateBulkProductDB();
+        this.updateRegularProductDB();
+        this.readBulkProductDB();
+        this.readRegularProductDB();
+    }
+    
+    private void updateRegularProductDB() {
+        // TODO: Write the regularProducts to regular-product.data file 
+        
+        WriteFileUtil wfu = new WriteFileUtil("regular-product.data");
+                List<String> columnData = List.of("itemNumber", 
+                "itemDescription",
+                "retailPrice",
+                "discountPercentage",
+                "availableUnits", 
+                "needsRestock");
+        List<List<String>> data = new ArrayList<>();
+        for (RegularProduct product: this.regularProducts.values()) {
+            List<String> row = new ArrayList<>();
+            row.add(product.getItemNumber());
+            row.add(product.getItemDescription());
+            row.add(product.getRetailPrice().toString());
+            row.add(product.getDiscountPercentage().toString());
+            row.add(Integer.toString(product.getAvailableUnits()));
+            row.add(product.getNeedsRestock().toString());
+            data.add(row);
+        }
+        wfu.write(columnData, data);
+    }
+    
+    private void updateBulkProductDB(){
+        // itemNumber, itemDescription, retailPrice, discountPercentage, availableUnits, needsRestock, pricePerUnit
+        WriteFileUtil wfu = new WriteFileUtil("bulk-product.data");
+        List<String> columnData = List.of("itemNumber", 
+                "itemDescription",
+                "retailPrice",
+                "discountPercentage",
+                "availableUnits", 
+                "needsRestock", 
+                "pricePerUnit");
+        List<List<String>> data = new ArrayList<>();
+        
+        for (BulkProduct product: this.bulkProducts.values()) {
+            List<String> row = new ArrayList<>();
+            row.add(product.getItemNumber());
+            row.add(product.getItemDescription());
+            row.add(product.getRetailPrice().toString());
+            row.add(product.getDiscountPercentage().toString());
+            row.add(Integer.toString(product.getAvailableUnits()));
+            row.add(product.getNeedsRestock().toString());
+            row.add(Double.toString(product.getPricePerUnit()));
+            data.add(row);
+        }
+        wfu.write(columnData, data);
+    }
 
     public static void main(String[] args) {
         ProductDBHelper db = new ProductDBHelper();
         db.readRegularProductDB();
         db.readBulkProductDB();
+        System.out.println(db.getProduct("REGULAR", "101").itemDescription);
         System.out.println(db.getProduct("BULK", "201"));
         System.out.println(db.getProduct("BULK", "-1"));
         BulkProduct product = (BulkProduct) db.getProduct("BULK", "-1");
         System.out.println(db.isDefault(product));
-        
-        
     }
 }

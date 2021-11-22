@@ -5,7 +5,7 @@ import dbhelper.ReadFileUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import model.Customer;
+import model.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,6 +19,10 @@ public class CustomerDBHelper {
 
     public HashMap<CustomerVerification, Customer> customers;
     final Customer defaultCustomer = new Customer("-1", "Test", 0, false, -1, -1);
+    
+    public CustomerDBHelper(){
+        this.readCustomerDB();
+    }
 
     // If the customer does not exist then just return the default customer.
     public Customer getCustomer(int phoneNumber, int loyaltyPin) {
@@ -66,31 +70,3 @@ public class CustomerDBHelper {
     }
 }
 
-class CustomerVerification {
-
-    int phoneNumber;
-    int memberPin;
-
-    public CustomerVerification(int phoneNumber, int memberPin) {
-        this.phoneNumber = phoneNumber;
-        this.memberPin = memberPin;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof CustomerVerification)) {
-            return false;
-        }
-        CustomerVerification verification = (CustomerVerification) o;
-        return memberPin == verification.memberPin && phoneNumber == verification.phoneNumber;
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(phoneNumber, memberPin);
-    }
-}

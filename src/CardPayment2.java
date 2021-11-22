@@ -1,3 +1,8 @@
+
+import controller.CheckoutFlowManager;
+import javax.swing.JOptionPane;
+import model.Bank;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -9,11 +14,13 @@
  */
 public class CardPayment2 extends javax.swing.JFrame {
 
+    public CheckoutFlowManager checkoutFlowManager;
     /**
      * Creates new form CardPayment2
      */
-    public CardPayment2() {
+    public CardPayment2(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
+        this.checkoutFlowManager = checkoutFlowManager;
     }
 
     /**
@@ -28,6 +35,8 @@ public class CardPayment2 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         InsertCard = new javax.swing.JButton();
         PrintReceiptButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        CardNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -35,6 +44,11 @@ public class CardPayment2 extends javax.swing.JFrame {
         jLabel1.setText("Credit Card Payment");
 
         InsertCard.setText("Insert Card");
+        InsertCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InsertCardActionPerformed(evt);
+            }
+        });
 
         PrintReceiptButton.setText("Print Receipt");
         PrintReceiptButton.addActionListener(new java.awt.event.ActionListener() {
@@ -42,6 +56,10 @@ public class CardPayment2 extends javax.swing.JFrame {
                 PrintReceiptButtonActionPerformed(evt);
             }
         });
+
+        jLabel2.setText("Card Number:");
+
+        CardNumber.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,20 +73,29 @@ public class CardPayment2 extends javax.swing.JFrame {
                             .addGap(51, 51, 51)
                             .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(PrintReceiptButton)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                        .addGap(117, 117, 117)
+                        .addComponent(PrintReceiptButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(jLabel1)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(CardNumber))
+                .addGap(33, 33, 33)
                 .addComponent(InsertCard)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PrintReceiptButton)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
         );
 
         pack();
@@ -76,13 +103,34 @@ public class CardPayment2 extends javax.swing.JFrame {
 
     private void PrintReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintReceiptButtonActionPerformed
         // TODO add your handling code here:
-        Receipt3 jfrm = new Receipt3();
+        Receipt3 jfrm = new Receipt3(this.checkoutFlowManager, "CREDIT");
         jfrm.setSize(400, 600); 
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_PrintReceiptButtonActionPerformed
+
+    private void InsertCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertCardActionPerformed
+        // TODO add your handling code here:
+           Bank bank = new Bank();
+        Long cardNo = bank.getCardDBHelper().getRandomCreditCardNumber();
+
+        CardNumber.setText(Long.toString(cardNo));
+        if (cardNo == 0L) {
+             JOptionPane.showMessageDialog(null, "Something went wrong, order canceled");
+            GUI jfrm = new GUI();
+            jfrm.setSize(600, 400);
+            jfrm.setVisible(true);
+            
+            this.setVisible(false);
+            this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+            this.dispose();
+            
+            return;
+        }
+
+    }//GEN-LAST:event_InsertCardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,14 +162,16 @@ public class CardPayment2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CardPayment2().setVisible(true);
+                new CardPayment2(new CheckoutFlowManager()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CardNumber;
     private javax.swing.JButton InsertCard;
     private javax.swing.JButton PrintReceiptButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

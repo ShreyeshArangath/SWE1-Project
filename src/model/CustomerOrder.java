@@ -27,7 +27,7 @@ public class CustomerOrder extends Order {
     }
 
     private double _calculateNetTotal() {
-        return this.getSubTotal() - this.getDiscountTotal() - this.salesTaxPercentage * this.getSubTotal();
+        return this.getSubTotal() - this.getDiscountTotal() - this.salesTaxPercentage/100 * this.getSubTotal();
     }
 
     public void setSalesTaxPercentage(double salesTaxPercentage) {
@@ -39,8 +39,8 @@ public class CustomerOrder extends Order {
     }
 
     @Override
-    public double getNetTotal() {
-        this.setNetTotal(_calculateNetTotal());
-        return this.getNetTotal();
+    public double setNetTotal() {
+        this.netTotal = _calculateNetTotal();
+        return this.netTotal;
     }
 }

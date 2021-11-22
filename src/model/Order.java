@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,12 +18,13 @@ public class Order {
     PaymentMethod paymentMethod;
     List<Product> itemsOrdered;
     private double subTotal;
-    private double netTotal;
+    public double netTotal;
     private double discountTotal;
     private boolean hasPaid;
 
     public Order(UUID orderNumber) {
         this.orderNumber = orderNumber;
+        this.itemsOrdered = new ArrayList<>();
     }
 
     public Order(UUID orderNumber,
@@ -72,7 +74,7 @@ public class Order {
         this.netTotal = netTotal;
     }
 
-    public double getNetTotal() {
+    public double setNetTotal() {
         return this.netTotal;
     }
 

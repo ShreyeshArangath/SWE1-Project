@@ -12,10 +12,15 @@ import java.util.Random;
  */
 public class Scale {
     
-    final int MAX_WEIGHT = 100;
+    final int MAX_WEIGHT = 10;
     
     public double weighItem() {
         Random rand = new Random();
         return rand.nextDouble(MAX_WEIGHT);
+    }
+    
+    public static void main(String[] args){
+        Scale scale = new Scale();
+        System.out.println(scale.weighItem());
     }
 }

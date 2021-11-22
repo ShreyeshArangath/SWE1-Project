@@ -99,6 +99,13 @@ public class VerifyCustomer extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_CheckoutButtonActionPerformed
 
+    public String getPhoneNumber() {
+        return this.PhoneNumber.getText();
+    }
+    
+     public String getMemberPin() {
+        return this.MemberPin.getText();
+    }
     /**
      * @param args the command line arguments
      */

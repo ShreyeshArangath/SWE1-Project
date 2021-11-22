@@ -1,19 +1,47 @@
+
+import controller.CheckoutFlowManager;
+import java.util.UUID;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author cgonz
  */
 public class CheckInfo extends javax.swing.JFrame {
 
+    private CheckoutFlowManager checkoutFlowManager;
     /**
      * Creates new form CheckInfo
      */
-    public CheckInfo() {
+    public CheckInfo(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
+
+        // Date 
+        CheckDate.setText(checkoutFlowManager.
+                getPaymentFlowManager()
+                .getCheck()
+                .getTime()
+                .toLocalDate().toString());
+
+        // Time 
+        CheckTime.setText(checkoutFlowManager.
+                getPaymentFlowManager()
+                .getCheck()
+                .getTime()
+                .toLocalTime().toString());
+
+        // Store ID 
+        // TODO: Create a Store and Cashier singleton with the store Id and cash Id 
+        CheckSID.setText(UUID.randomUUID().toString());
+        // Cashier ID 
+        CheckCID.setText(UUID.randomUUID().toString());
+        // Order Number 
+        CheckON.setText(checkoutFlowManager.getOrder().getOrderNumber().toString());
+        
+        this.checkoutFlowManager = checkoutFlowManager;
     }
 
     /**
@@ -147,8 +175,8 @@ public class CheckInfo extends javax.swing.JFrame {
 
     private void PrintReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintReceiptButtonActionPerformed
         // TODO add your handling code here:
-        Receipt2 jfrm = new Receipt2();
-        jfrm.setSize(400, 500); 
+        Receipt2 jfrm = new Receipt2(this.checkoutFlowManager);
+        jfrm.setSize(400, 500);        
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -185,7 +213,7 @@ public class CheckInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CheckInfo().setVisible(true);
+                new CheckInfo(new CheckoutFlowManager() ).setVisible(true);
             }
         });
     }

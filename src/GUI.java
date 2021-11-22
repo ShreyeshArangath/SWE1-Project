@@ -2,6 +2,9 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import controller.*;
+import interfaces.*;
+import model.Product;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,12 +19,21 @@ public class GUI extends javax.swing.JFrame {
 
     private Component frame;
     private boolean isFirstItem;
+    private CheckoutFlowManager checkoutFlowManager;
+    private Scale scale;
+    
+    // TODO: Add a label that says loyalty customer points added 
+    private int phoneNumber; 
+    private int memberPin;
+    
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
         this.isFirstItem = true;
+        this.checkoutFlowManager = new CheckoutFlowManager();
+        this.scale = new Scale();
     }
 
     /**
@@ -197,35 +209,29 @@ public class GUI extends javax.swing.JFrame {
 
     private void ScanButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
-        int dialogButton = 0;
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Is this the first item?", "Warning", dialogButton);
-        if (dialogResult == JOptionPane.YES_OPTION) {
-            VerifyCustomer2 jfrm = new VerifyCustomer2();
-            jfrm.setSize(530, 400);
-            jfrm.setVisible(true);
-            jfrm.setLocationRelativeTo(null);
-            jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            jfrm.setVisible(true);
-        } else if (dialogResult == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(frame, "Continue with Checkout.");
-            if (JOptionPane.OK_OPTION == 0) {
-                GUI jfrm = new GUI();
-                jfrm.setSize(600, 400); 
-                jfrm.setVisible(true);
-                this.setVisible(false);
-                this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
-                this.dispose();
-            }
-        }
+        
+        // TODO: Add random index logic 
+        String productId = this.checkoutFlowManager.getRandomRegularItem();
+        Product product = this.checkoutFlowManager.getProduct(productId);
+        
+        this.checkoutFlowManager.addRegularProduct(productId);
+        
+        if (this.isFirstItem) {
+            this.loyalCustomerPopup();
+            this.isFirstItem = false;
+        }  
+        
+        JOptionPane.showMessageDialog(frame, "Item scanned: "+  product.getItemDescription());
         this.setVisible(false);
         this.setDefaultCloseOperation(GUI.DISPOSE_ON_CLOSE);
         this.dispose();
+        
     }                                          
       
     private void TotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalButtonActionPerformed
 
         // TODO add your handling code here:
-        PaymentMethod jfrm = new PaymentMethod();
+        PaymentMethod jfrm = new PaymentMethod(this.checkoutFlowManager, this.memberPin, this.phoneNumber);
         jfrm.setSize(600, 500);
         jfrm.setVisible(true);
         this.setVisible(false);
@@ -249,6 +255,10 @@ public class GUI extends javax.swing.JFrame {
             jfrm.setLocationRelativeTo(null);
             jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jfrm.setVisible(true);
+            this.memberPin = Integer.parseInt(jfrm.getMemberPin());
+            this.phoneNumber = Integer.parseInt(jfrm.getPhoneNumber());
+            // TODO: Add member points        
+            
         } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Return to Checkout");
         }
@@ -256,23 +266,27 @@ public class GUI extends javax.swing.JFrame {
     
     private void AddItemButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-        String text = ItemID.getText();
-        String productId = text.substring(2);
+        String productId = ItemID.getText();
        
-        if (text.startsWith("1")) {
-            Bulk jfrm = new Bulk();
+        if (productId.startsWith("2")) {
+            Double weight = this.scale.weighItem();
+            System.out.println(weight);
+            Bulk jfrm = new Bulk(weight);
             jfrm.setSize(400, 300);
             jfrm.setVisible(true);
             jfrm.setLocationRelativeTo(null);
             jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jfrm.setVisible(true);
-        } else if (text.startsWith("2")) {
+            this.checkoutFlowManager.addBulkProduct(productId, scale);
+        } else if (productId.startsWith("1")) {
             JOptionPane.showMessageDialog(frame, "Item Added.");
+            this.checkoutFlowManager.addRegularProduct(productId);
         }
         if (this.isFirstItem) {
             this.loyalCustomerPopup();
             this.isFirstItem = false;
         }  
+        
     }                                             
   
     /**
