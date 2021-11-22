@@ -5,17 +5,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import controller.*;
 /**
  *
  * @author cgonz
  */
 public class CashPayment extends javax.swing.JFrame {
-
+    
+    public CheckoutFlowManager checkoutFlowManager;
+    
     /**
      * Creates new form CashPayment
      */
-    public CashPayment() {
+    public CashPayment(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
+        this.checkoutFlowManager = checkoutFlowManager;
     }
 
     CashPayment(String cash_Payment) {
@@ -95,7 +99,10 @@ public class CashPayment extends javax.swing.JFrame {
 
     private void PrintReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintReceiptButtonActionPerformed
         // TODO add your handling code here:
-        Receipt jfrm = new Receipt();
+        // TODO: Take the amount from AmountDisplayed
+        Double amountPaid = Double.parseDouble(AmountDisplayed.getText());
+        double change = this.checkoutFlowManager.processCashPayment(this.checkoutFlowManager.getOrder().netTotal, amountPaid);
+        Receipt jfrm = new Receipt(this.checkoutFlowManager, amountPaid, change);
         jfrm.setSize(400, 500); 
         jfrm.setVisible(true);
         this.setVisible(false);       
@@ -137,7 +144,8 @@ public class CashPayment extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new CashPayment().setVisible(true);
+            CheckoutFlowManager checkoutFlowManager = new CheckoutFlowManager();
+            new CashPayment(checkoutFlowManager).setVisible(true);
         });
     }
 

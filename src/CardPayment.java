@@ -1,19 +1,28 @@
+
+import controller.CheckoutFlowManager;
+import java.awt.Component;
+import java.util.UUID;
+import javax.swing.JOptionPane;
+import model.Bank;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author cgonz
  */
 public class CardPayment extends javax.swing.JFrame {
 
+    public CheckoutFlowManager checkoutFlowManager;
+
     /**
      * Creates new form CardPayment
      */
-    public CardPayment() {
+    public CardPayment(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
+        this.checkoutFlowManager = checkoutFlowManager;
     }
 
     /**
@@ -29,6 +38,9 @@ public class CardPayment extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         PinNumber = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        InsertCard = new javax.swing.JButton();
+        CardNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,6 +62,15 @@ public class CardPayment extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Enter Card Number:");
+
+        InsertCard.setText("Insert Card");
+        InsertCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InsertCardActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -57,17 +78,24 @@ public class CardPayment extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
+                                .addGap(16, 16, 16)
+                                .addComponent(PinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(59, Short.MAX_VALUE))
+                                .addComponent(CardNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(InsertCard, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,9 +106,15 @@ public class CardPayment extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(PinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(CardNumber))
+                .addGap(18, 18, 18)
+                .addComponent(InsertCard)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -92,13 +126,45 @@ public class CardPayment extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Receipt3 jfrm = new Receipt3();
-        jfrm.setSize(400, 600); 
+        double amountDue = this.checkoutFlowManager.getOrder().netTotal;
+        double amountPaid = amountDue;
+        int pin = Integer.parseInt(PinNumber.getText());
+        long cardNo = Long.parseLong(CardNumber.getText());
+
+        // TODO: Try thrice and then cancel the order.
+        UUID uuid = this.checkoutFlowManager.processDebitCardPayment(cardNo, pin, amountDue, amountPaid);
+        if (uuid.compareTo(new UUID(0, 0)) == 0) {
+            PinNumber.setText("");
+            JOptionPane.showMessageDialog(null, "Something went wrong, order canceled");
+            GUI jfrm = new GUI();
+            jfrm.setSize(600, 400);
+            jfrm.setVisible(true);
+            
+            this.setVisible(false);
+            this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+            this.dispose();
+            
+            return;
+        }
+
+        Receipt3 jfrm = new Receipt3(this.checkoutFlowManager, "DEBIT");
+        jfrm.setSize(400, 600);
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void InsertCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertCardActionPerformed
+        // TODO add your handling code here:
+        // TODO: Factory to generate credit/debit card
+        Bank bank = new Bank();
+        Long cardNo = bank.getCardDBHelper().getRandomDebitCardNumber();
+
+        CardNumber.setText(Long.toString(cardNo));
+
+
+    }//GEN-LAST:event_InsertCardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,15 +196,18 @@ public class CardPayment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CardPayment().setVisible(true);
+                new CardPayment(new CheckoutFlowManager()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CardNumber;
+    private javax.swing.JButton InsertCard;
     private javax.swing.JTextField PinNumber;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

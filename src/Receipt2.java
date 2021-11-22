@@ -1,6 +1,9 @@
 
+import controller.CheckoutFlowManager;
 import java.awt.Component;
 import javax.swing.JOptionPane;
+import model.Order;
+import model.Product;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,12 +17,32 @@ import javax.swing.JOptionPane;
 public class Receipt2 extends javax.swing.JFrame {
 
     private Component frame;
+    private CheckoutFlowManager checkoutFlowManager;
+    
 
     /**
      * Creates new form Receipt2
      */
-    public Receipt2() {
+    public Receipt2(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
+         this.checkoutFlowManager = checkoutFlowManager;
+        String items = ""; 
+        Order order = this.checkoutFlowManager.getOrder();
+        for(Product product: order.getItemsOrdered()){
+            items += product.getItemDescription() + "\t\t" + product.getRetailPrice() + "\n";
+        }
+        Items.setText(items);
+        String subtotal = String.format("%.2f", this.checkoutFlowManager.getOrder().getSubTotal());
+        Subtotal.setText(subtotal);
+        
+        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage()/100
+                * this.checkoutFlowManager.getOrder().getSubTotal();
+        String tax = String.format("%.2f", taxValue);
+        Tax.setText(tax);
+        
+        String total = String.format("%.2f", this.checkoutFlowManager.getOrder().netTotal);
+        Total.setText(total);
+        
     }
 
     /**
@@ -152,6 +175,9 @@ public class Receipt2 extends javax.swing.JFrame {
                 this.dispose();
             }
         }
+        
+        // TODO: Add code to restock inventory here 
+        
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         this.dispose();
@@ -187,7 +213,7 @@ public class Receipt2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Receipt2().setVisible(true);
+                new Receipt2(new CheckoutFlowManager()).setVisible(true);
             }
         });
     }

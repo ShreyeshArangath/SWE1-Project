@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @author shreyesh
  */
 public class ReadFileUtil {
-    private Path path;
+    private final Path path;
     public ReadFileUtil(String fileName){
         path = Paths.get("src/data", fileName);
     }
@@ -34,7 +34,7 @@ public class ReadFileUtil {
     }
 
     private List<String> getRecordFromLine(String line) {
-        List<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
         try (Scanner rowScanner = new Scanner(line)) {
             rowScanner.useDelimiter(",");
             while (rowScanner.hasNext()) {

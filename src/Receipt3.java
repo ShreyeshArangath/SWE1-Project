@@ -1,6 +1,9 @@
 
+import controller.CheckoutFlowManager;
 import java.awt.Component;
 import javax.swing.JOptionPane;
+import model.Order;
+import model.Product;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,12 +17,44 @@ import javax.swing.JOptionPane;
 public class Receipt3 extends javax.swing.JFrame {
 
     private Component frame;
+    public CheckoutFlowManager checkoutFlowManager;
 
     /**
      * Creates new form Receipt3
      */
-    public Receipt3() {
+    public Receipt3(CheckoutFlowManager checkoutFlowManager, String type) {
         initComponents();
+          this.checkoutFlowManager = checkoutFlowManager;
+        String items = ""; 
+        Order order = this.checkoutFlowManager.getOrder();
+        for(Product product: order.getItemsOrdered()){
+            items += product.getItemDescription() + "\t\t" + product.getRetailPrice() + "\n";
+        }
+        Items.setText(items);
+        String subtotal = String.format("%.2f", this.checkoutFlowManager.getOrder().getSubTotal());
+        Subtotal.setText(subtotal);
+        
+        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage()/100
+                * this.checkoutFlowManager.getOrder().getSubTotal();
+        String tax = String.format("%.2f", taxValue);
+        Tax.setText(tax);
+        
+        String total = String.format("%.2f", this.checkoutFlowManager.getOrder().netTotal);
+        Total.setText(total);
+        
+        if (type == "DEBIT"){
+            String authNumber = this.checkoutFlowManager.getPaymentFlowManager().getDebitCard().authorizeDebit().toString();
+        AuthorizationNumber.setText(authNumber);
+        }
+        else {
+             String authNumber = this.checkoutFlowManager.getPaymentFlowManager().getCreditCard().authorizeCredit().toString();
+        AuthorizationNumber.setText(authNumber);
+        }
+        
+        
+        String cardNumber = Long.toString(this.checkoutFlowManager.getPaymentFlowManager().getDebitCard().getCardNumber());
+        CardNumber.setText(cardNumber);
+        
     }
 
     /**
@@ -172,6 +207,10 @@ public class Receipt3 extends javax.swing.JFrame {
                 this.dispose();
             }
         }
+        
+        // TODO: Add code to restock inventory here 
+        
+        
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         this.dispose();
@@ -207,7 +246,7 @@ public class Receipt3 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Receipt3().setVisible(true);
+                new Receipt3(new CheckoutFlowManager(), "").setVisible(true);
             }
         });
     }

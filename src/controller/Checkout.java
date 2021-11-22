@@ -55,7 +55,7 @@ public class Checkout {
         customerOrder.setDiscountTotal(totalDiscountAmount);
         customerOrder.setSubTotal(total);
         customerOrder.setSalesTaxPercentage(salesTaxPercentage);
-        customerOrder.getNetTotal();
+        customerOrder.setNetTotal();
 
         if (customer.getIsLoyalCustomer()) {
             this.customer = this.addLoyaltyCustomerCreditPoints();

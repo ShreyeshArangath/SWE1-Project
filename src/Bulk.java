@@ -14,12 +14,15 @@ import javax.swing.JOptionPane;
 public class Bulk extends javax.swing.JFrame {
 
     private Component frame;
+    private double weight;
 
     /**
      * Creates new form Bulk
      */
-    public Bulk() {
+    public Bulk(double weight) {
         initComponents();
+        this.weight = weight;
+        ItemWeight.setVisible(false);
     }
 
     /**
@@ -90,6 +93,9 @@ public class Bulk extends javax.swing.JFrame {
 
     private void ScaleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScaleButtonActionPerformed
         // TODO add your handling code here:
+        ItemWeight.setVisible(true);
+        String weight = String.format("%.2f", this.weight);
+        ItemWeight.setText(weight);
         JOptionPane.showMessageDialog(frame, "Scale Complete. Return to Checkout.");
         if (JOptionPane.OK_OPTION == 0)
             {
@@ -128,7 +134,7 @@ public class Bulk extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Bulk().setVisible(true);
+            new Bulk(20.0).setVisible(true);
         });
     }
 

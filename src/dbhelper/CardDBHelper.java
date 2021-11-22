@@ -8,13 +8,46 @@ package dbhelper;
  *
  * @author User
  */
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import model.*;
 
 public class CardDBHelper {
     private HashMap<Long, Card> creditCards;
     private HashMap<Long, Card> debitCards;
+    
+    public CardDBHelper(){
+        this.readCreditCardDB();
+        this.readDebitCardDB();
+    }
+    
+    public Long getRandomDebitCardNumber() {
+        int length = debitCards.keySet().toArray().length;
+        Random rand = new Random();
+        int index = rand.nextInt(length);
+       
+        
+        List<Long> cc= new ArrayList<>();
+        cc.add((Long) debitCards.keySet().toArray()[index]);
+        cc.add(0000000000000000L);
+        index = rand.nextInt(cc.size());
+        return cc.get(index);
+    }
+    
+     public Long getRandomCreditCardNumber() {
+        int length = creditCards.keySet().toArray().length;
+        Random rand = new Random();
+        int index = rand.nextInt(length);
+        
+        List<Long> cc= new ArrayList<>();
+        cc.add((Long) creditCards.keySet().toArray()[index]);
+        cc.add(0000000000000000L);
+        index = rand.nextInt(cc.size());
+        return cc.get(index);
+    }
+    
     
     public Card getCard(String cardType, long cardNumber){
         if(cardType.equalsIgnoreCase("Credit")){

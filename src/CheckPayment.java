@@ -1,3 +1,6 @@
+
+import controller.CheckoutFlowManager;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,12 +11,19 @@
  * @author cgonz
  */
 public class CheckPayment extends javax.swing.JFrame {
-
+    private CheckoutFlowManager checkoutFlowManager;
+    
     /**
      * Creates new form CheckPayment
      */
-    public CheckPayment() {
+    public CheckPayment(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
+        this.checkoutFlowManager = checkoutFlowManager;
+        double amountDue = this.checkoutFlowManager.getOrder().netTotal;
+        double amountPaid = amountDue;
+        this.checkoutFlowManager.processCheck(amountDue, amountPaid);
+        
+      
     }
 
     /**
@@ -68,7 +78,7 @@ public class CheckPayment extends javax.swing.JFrame {
 
     private void ScanCheckButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanCheckButtonActionPerformed
         // TODO add your handling code here:
-        CheckInfo jfrm = new CheckInfo();
+        CheckInfo jfrm = new CheckInfo(this.checkoutFlowManager);
         jfrm.setSize(500, 400); 
         jfrm.setVisible(true);
         this.setVisible(false);
@@ -106,7 +116,7 @@ public class CheckPayment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CheckPayment().setVisible(true);
+                new CheckPayment(new CheckoutFlowManager()).setVisible(true);
             }
         });
     }

@@ -31,7 +31,7 @@ public class InventoryDBHelper {
         dbhelper.readBulkProductDB();
         dbhelper.readRegularProductDB();
         HashMap<String, RegularProduct> regularProduct = dbhelper.getRegularProducts();
-        HashMap<String, BulkProduct> bulkProduct = dbhelper.getBulkProduct();
+        HashMap<String, BulkProduct> bulkProduct = dbhelper.getBulkProducts();
 
         List<Product> products = new ArrayList<>();
         for (Map.Entry<String, RegularProduct> regular : regularProduct.entrySet()) {
