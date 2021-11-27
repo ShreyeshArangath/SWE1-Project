@@ -27,6 +27,10 @@ public class Order {
         this.itemsOrdered = new ArrayList<>();
     }
 
+    public Order(UUID orderNumber, List<Product> itemsOrdered) {
+        this.orderNumber = orderNumber;
+        this.itemsOrdered = itemsOrdered;
+    }
     public Order(UUID orderNumber,
             PaymentMethod paymentMethod,
             List<Product> itemsOrdered,

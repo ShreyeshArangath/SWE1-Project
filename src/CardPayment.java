@@ -137,7 +137,6 @@ public class CardPayment extends javax.swing.JFrame {
             PinNumber.setText("");
             JOptionPane.showMessageDialog(null, "Something went wrong, order canceled");
             GUI jfrm = new GUI();
-            jfrm.setSize(600, 400);
             jfrm.setVisible(true);
             
             this.setVisible(false);
@@ -148,7 +147,6 @@ public class CardPayment extends javax.swing.JFrame {
         }
 
         Receipt3 jfrm = new Receipt3(this.checkoutFlowManager, "DEBIT");
-        jfrm.setSize(400, 600);
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -160,10 +158,7 @@ public class CardPayment extends javax.swing.JFrame {
         // TODO: Factory to generate credit/debit card
         Bank bank = new Bank();
         Long cardNo = bank.getCardDBHelper().getRandomDebitCardNumber();
-
         CardNumber.setText(Long.toString(cardNo));
-
-
     }//GEN-LAST:event_InsertCardActionPerformed
 
     /**

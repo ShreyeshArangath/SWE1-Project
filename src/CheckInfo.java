@@ -175,8 +175,7 @@ public class CheckInfo extends javax.swing.JFrame {
 
     private void PrintReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintReceiptButtonActionPerformed
         // TODO add your handling code here:
-        Receipt2 jfrm = new Receipt2(this.checkoutFlowManager);
-        jfrm.setSize(400, 500);        
+        Receipt2 jfrm = new Receipt2(this.checkoutFlowManager);    
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);

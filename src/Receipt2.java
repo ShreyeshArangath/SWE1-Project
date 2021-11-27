@@ -1,6 +1,7 @@
 
 import controller.CheckoutFlowManager;
 import java.awt.Component;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Order;
 import model.Product;
@@ -9,7 +10,6 @@ import model.Product;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author cgonz
@@ -18,31 +18,30 @@ public class Receipt2 extends javax.swing.JFrame {
 
     private Component frame;
     private CheckoutFlowManager checkoutFlowManager;
-    
 
     /**
      * Creates new form Receipt2
      */
     public Receipt2(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
-         this.checkoutFlowManager = checkoutFlowManager;
-        String items = ""; 
+        this.checkoutFlowManager = checkoutFlowManager;
+        String items = "";
         Order order = this.checkoutFlowManager.getOrder();
-        for(Product product: order.getItemsOrdered()){
+        for (Product product : order.getItemsOrdered()) {
             items += product.getItemDescription() + "\t\t" + product.getRetailPrice() + "\n";
         }
         Items.setText(items);
         String subtotal = String.format("%.2f", this.checkoutFlowManager.getOrder().getSubTotal());
         Subtotal.setText(subtotal);
-        
-        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage()/100
+
+        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage() / 100
                 * this.checkoutFlowManager.getOrder().getSubTotal();
         String tax = String.format("%.2f", taxValue);
         Tax.setText(tax);
-        
+
         String total = String.format("%.2f", this.checkoutFlowManager.getOrder().netTotal);
         Total.setText(total);
-        
+
     }
 
     /**
@@ -54,9 +53,10 @@ public class Receipt2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Items = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         Subtotal = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -64,6 +64,12 @@ public class Receipt2 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         Total = new javax.swing.JLabel();
         CloseTillButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Items = new javax.swing.JTextArea();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,9 +77,6 @@ public class Receipt2 extends javax.swing.JFrame {
         jLabel1.setText("Check Receipt");
 
         jLabel2.setText("Items:");
-
-        Items.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Items.setText("jLabel3");
 
         jLabel4.setText("Subtotal:");
 
@@ -94,46 +97,53 @@ public class Receipt2 extends javax.swing.JFrame {
             }
         });
 
+        Items.setColumns(20);
+        Items.setRows(5);
+        jScrollPane2.setViewportView(Items);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jLabel1))
+                        .addGap(108, 108, 108)
+                        .addComponent(CloseTillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CloseTillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel2)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Items, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                                     .addComponent(Subtotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Tax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(85, Short.MAX_VALUE))
+                                    .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(17, 17, 17)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(Items, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(Subtotal))
@@ -145,39 +155,48 @@ public class Receipt2 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(Total))
-                .addGap(43, 43, 43)
+                .addGap(44, 44, 44)
                 .addComponent(CloseTillButton)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void CloseTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseTillButtonActionPerformed
-        // TODO add your handling code here:
+
+        // TODO: Add code to restock inventory here 
+        List<Product> restockedItems = this.checkoutFlowManager.updateInventory();
+        if (restockedItems.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("The following items need to be restocked. \n");
+
+            for (Product product : restockedItems) {
+                sb.append(product.getItemDescription()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(frame, sb.toString());
+        }
+
         int dialogButton = 0;
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to return to Checkout?","Thanks for Shopping!",dialogButton);
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to return to Checkout?", "Thanks for Shopping!", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             GUI jfrm = new GUI();
-            jfrm.setSize(600, 400); 
             jfrm.setVisible(true);
             this.setVisible(false);
             this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
             this.dispose();
-        }
-        else if (dialogResult == JOptionPane.NO_OPTION)
-        {
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Thanks for Shopping!");
-            if (JOptionPane.OK_OPTION == 0)
-            {
+            if (JOptionPane.OK_OPTION == 0) {
                 this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
                 this.dispose();
             }
         }
-        
+
         // TODO: Add code to restock inventory here 
-        
+        this.checkoutFlowManager.updateInventory();
+
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         this.dispose();
@@ -220,7 +239,7 @@ public class Receipt2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CloseTillButton;
-    private javax.swing.JLabel Items;
+    private javax.swing.JTextArea Items;
     private javax.swing.JLabel Subtotal;
     private javax.swing.JLabel Tax;
     private javax.swing.JLabel Total;
@@ -229,5 +248,8 @@ public class Receipt2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

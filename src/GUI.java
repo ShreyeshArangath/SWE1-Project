@@ -1,16 +1,21 @@
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import controller.*;
 import interfaces.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 import model.Product;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author shreyesh
@@ -18,14 +23,15 @@ import model.Product;
 public class GUI extends javax.swing.JFrame {
 
     private Component frame;
+    
     private boolean isFirstItem;
     private CheckoutFlowManager checkoutFlowManager;
     private Scale scale;
-    
+    private CustomerDisplay customerDisplay;
     // TODO: Add a label that says loyalty customer points added 
-    private int phoneNumber; 
+    private int phoneNumber;
     private int memberPin;
-    
+
     /**
      * Creates new form GUI
      */
@@ -34,6 +40,17 @@ public class GUI extends javax.swing.JFrame {
         this.isFirstItem = true;
         this.checkoutFlowManager = new CheckoutFlowManager();
         this.scale = new Scale();
+        this.customerDisplay = new CustomerDisplay();
+        this.customerDisplay.setVisible(true);
+        this.customerDisplay.setLocationRelativeTo(this);
+        
+             // every night at 12am you run your task
+        Timer timer = new Timer();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        timer.schedule(InventoryRestockTask.getTask(), today.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)); // period: 1 day
     }
 
     /**
@@ -62,6 +79,9 @@ public class GUI extends javax.swing.JFrame {
         TotalButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         AddItemButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        items = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,10 +120,11 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Supermarket System");
 
-        jLabel2.setText("ITEM-ID:");
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel2.setText("Manual Entry");
 
         ItemID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +134,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel3.setText("OR");
 
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("Scan Barcode:");
 
         ScanButton.setText("Scan");
@@ -136,64 +158,89 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        AddItemButton.setText("Add Item");
+        AddItemButton.setText("ITEM-ID");
         AddItemButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddItemButtonActionPerformed(evt);
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel5.setText("Items");
+
+        items.setColumns(20);
+        items.setRows(5);
+        jScrollPane1.setViewportView(items);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(ExitButton)
+                .addContainerGap(954, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(ExitButton))
+                        .addGap(167, 167, 167)
+                        .addComponent(TotalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
+                        .addGap(230, 230, 230)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(67, 67, 67)
-                                        .addComponent(jLabel3))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(TotalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(ScanButton))))))
-                        .addGap(18, 18, 18)
-                        .addComponent(AddItemButton)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                                .addComponent(jLabel4)
+                                .addGap(63, 63, 63)
+                                .addComponent(ScanButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(AddItemButton)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(292, 292, 292))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(382, 382, 382)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(ItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddItemButton))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ScanButton))
-                .addGap(30, 30, 30)
-                .addComponent(TotalButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(ExitButton)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ScanButton))
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(ItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AddItemButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TotalButton)
+                        .addGap(88, 88, 88)
+                        .addComponent(ExitButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -207,36 +254,67 @@ public class GUI extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_ItemIDActionPerformed
 
-    private void ScanButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void ScanButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        
-        // TODO: Add random index logic 
-        String productId = this.checkoutFlowManager.getRandomRegularItem();
-        Product product = this.checkoutFlowManager.getProduct(productId);
-        
-        this.checkoutFlowManager.addRegularProduct(productId);
-        
+        Random rand = new Random();
+        int choice = rand.nextInt(2);
+        String productId;
+        Product product;
+        switch (choice) {
+            case 0:
+                productId = this.checkoutFlowManager.getRandomRegularItem();
+                product = this.checkoutFlowManager.getProduct(productId);
+                this.checkoutFlowManager.addRegularProduct(productId);
+                JOptionPane.showMessageDialog(frame, "Item scanned: " + product.getItemDescription());
+                break;
+            default:
+                productId = this.checkoutFlowManager.getRandomBulkItem();
+                product = this.checkoutFlowManager.getProduct(productId);
+                this.checkoutFlowManager.addBulkProduct(productId, scale);
+                this.bulkItemScalePerformed(productId);
+                break;
+        }
+
         if (this.isFirstItem) {
             this.loyalCustomerPopup();
             this.isFirstItem = false;
-        }  
-        
-        JOptionPane.showMessageDialog(frame, "Item scanned: "+  product.getItemDescription());
-        this.setVisible(false);
-        this.setDefaultCloseOperation(GUI.DISPOSE_ON_CLOSE);
-        this.dispose();
-        
-    }                                          
-      
+        }
+
+        List<Product> listOfProducts = this.checkoutFlowManager.getOrder().getItemsOrdered();
+        Product lastProductAdded = listOfProducts.get(listOfProducts.size() - 1);
+        this.setRunningList(lastProductAdded.getItemDescription(), lastProductAdded.getRetailPrice());
+
+    }
+
+    private void setRunningList(String productName, Double productPrice) {
+        String existing = items.getText();
+        StringBuilder newLine = new StringBuilder();
+        newLine.append(productName).append("\t\t")
+                .append(Double.toString(productPrice))
+                .append("\n");
+        StringBuilder finalList = new StringBuilder();
+        finalList.append(existing).append(newLine);
+        this.customerDisplay.updateCustomerDisplay(newLine.toString());
+        items.setText(finalList.toString());
+    }
+
     private void TotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalButtonActionPerformed
 
         // TODO add your handling code here:
         PaymentMethod jfrm = new PaymentMethod(this.checkoutFlowManager, this.memberPin, this.phoneNumber);
-        jfrm.setSize(600, 500);
         jfrm.setVisible(true);
+
+        // Customer Display
+        this.customerDisplay.setVisible(false);
+        this.customerDisplay.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
+        this.customerDisplay.dispose();
+
+        // GUI
         this.setVisible(false);
         this.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
         this.dispose();
+
+
     }//GEN-LAST:event_TotalButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -250,7 +328,6 @@ public class GUI extends javax.swing.JFrame {
         int dialogResult = JOptionPane.showConfirmDialog(null, "Are you a Loyal Customer?", "Warning", dialogButton);
         if (dialogResult == JOptionPane.YES_OPTION) {
             VerifyCustomer jfrm = new VerifyCustomer();
-            jfrm.setSize(530, 400);
             jfrm.setVisible(true);
             jfrm.setLocationRelativeTo(null);
             jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -258,26 +335,29 @@ public class GUI extends javax.swing.JFrame {
             this.memberPin = Integer.parseInt(jfrm.getMemberPin());
             this.phoneNumber = Integer.parseInt(jfrm.getPhoneNumber());
             // TODO: Add member points        
-            
+
         } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Return to Checkout");
         }
     }
-    
-    private void AddItemButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+
+    private void bulkItemScalePerformed(String productId) {
+        Double weight = this.scale.weighItem();
+        Bulk jfrm = new Bulk(weight);
+        jfrm.setVisible(true);
+        jfrm.setLocationRelativeTo(null);
+        jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jfrm.setVisible(true);
+        
+    }
+
+    private void AddItemButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         String productId = ItemID.getText();
-       
         if (productId.startsWith("2")) {
-            Double weight = this.scale.weighItem();
-            System.out.println(weight);
-            Bulk jfrm = new Bulk(weight);
-            jfrm.setSize(400, 300);
-            jfrm.setVisible(true);
-            jfrm.setLocationRelativeTo(null);
-            jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            jfrm.setVisible(true);
+            this.bulkItemScalePerformed(productId);
             this.checkoutFlowManager.addBulkProduct(productId, scale);
+
         } else if (productId.startsWith("1")) {
             JOptionPane.showMessageDialog(frame, "Item Added.");
             this.checkoutFlowManager.addRegularProduct(productId);
@@ -285,10 +365,12 @@ public class GUI extends javax.swing.JFrame {
         if (this.isFirstItem) {
             this.loyalCustomerPopup();
             this.isFirstItem = false;
-        }  
-        
-    }                                             
-  
+        }
+        List<Product> listOfProducts = this.checkoutFlowManager.getOrder().getItemsOrdered();
+        Product lastProductAdded = listOfProducts.get(listOfProducts.size() - 1);
+        this.setRunningList(lastProductAdded.getItemDescription(), lastProductAdded.getRetailPrice());
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -327,14 +409,17 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JTextArea items;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 

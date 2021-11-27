@@ -22,8 +22,11 @@ public class CheckoutFlowManager {
     private ProductDBHelper productDBHelper;
     final private String BULK = "BULK";
     final private String REGULAR = "REGULAR";
+    //private Customer customer;
+    public PaymentFlowManager paymentFlowManager = new PaymentFlowManager();
+    public LoyaltyPointsFlowManager loyaltyPointsFlowManager = new LoyaltyPointsFlowManager();
+    private InventoryRestockManager inventoryRestockManager;
 
-    private Checkout controller;
     final private double salesTaxPercentage = 12.1;
 
     public CheckoutFlowManager() {
@@ -33,7 +36,9 @@ public class CheckoutFlowManager {
         productDBHelper = new ProductDBHelper();
         productDBHelper.readBulkProductDB();
         productDBHelper.readRegularProductDB();
+        this.inventoryRestockManager = new InventoryRestockManager(this.productDBHelper);
     }
+    
 
     public void addRegularProduct(String productId) {
         RegularProduct product = (RegularProduct) productDBHelper.getProduct(REGULAR, productId);
@@ -46,6 +51,13 @@ public class CheckoutFlowManager {
         Random rand = new Random();
         int index = rand.nextInt(length);
         return (String) productDBHelper.getRegularProducts().keySet().toArray()[index];
+    }
+    
+    public String getRandomBulkItem() {
+        int length = productDBHelper.getBulkProducts().keySet().toArray().length;
+        Random rand = new Random();
+        int index = rand.nextInt(length);
+        return (String) productDBHelper.getBulkProducts().keySet().toArray()[index];
     }
 
     public Product getProduct(String productId) {
@@ -64,7 +76,7 @@ public class CheckoutFlowManager {
     }
 
     public PaymentFlowManager getPaymentFlowManager() {
-        return this.controller.paymentFlowManager;
+        return this.paymentFlowManager;
     }
 
     /**
@@ -74,34 +86,37 @@ public class CheckoutFlowManager {
      * @return CustomerOrder object
      */
     public CheckoutFlowManager processOrder(Customer customer) {
-        this.controller = new Checkout(order, customer);
-        this.controller.execute(this.salesTaxPercentage);
+        this.order.setSalesTaxPercentage(salesTaxPercentage);
+        order.processOrder();
+
+        if (customer.getIsLoyalCustomer()) {
+            this.loyaltyPointsFlowManager.setCustomer(customer);
+            this.loyaltyPointsFlowManager.addPointsToAccount((int) order.getSubTotal());
+        }
 
         return this;
     }
 
     public double processCashPayment(double amountDue, double amountPaid) {
-        if (this.controller.paymentFlowManager.PaymentByCash(amountDue, amountPaid)) {
-            return this.controller.paymentFlowManager.getCash().getChange();
+        if (this.paymentFlowManager.PaymentByCash(amountDue, amountPaid)) {
+            return this.paymentFlowManager.getCash().getChange();
         }
         return Float.MAX_VALUE;
     }
 
     public UUID processCreditCardPayment(Long cardNo, double amountDue, double amountPaid) {
-        return this.controller
-                .paymentFlowManager
+        return this.paymentFlowManager
                 .PaymentByCreditCard(cardNo, amountDue, amountPaid);
     }
 
     public UUID processDebitCardPayment(Long cardNo, int pin, double amountDue, double amountPaid) {
-        return this.controller
-                .paymentFlowManager
+        return this.paymentFlowManager
                 .PaymentByDebitCard(cardNo, pin, amountDue, amountPaid);
     }
 
     public UUID processCheck(double amountDue, double amountPaid) {
-        if (this.controller.paymentFlowManager.PaymentByCheck(amountDue, amountPaid)) {
-            return this.controller
+        if (this.paymentFlowManager.PaymentByCheck(amountDue, amountPaid)) {
+            return this
                     .paymentFlowManager
                     .getCheck()
                     .getCheckNumber();
@@ -109,7 +124,7 @@ public class CheckoutFlowManager {
         return null;
     }
 
-    public void updateInventory() {
+    public List<Product> updateInventory() {
         for (Product product : this.order.getItemsOrdered()) {
             if (this.productDBHelper.getRegularProducts().containsKey(product.itemNumber)) {
                 RegularProduct regProd = this.productDBHelper
@@ -131,6 +146,8 @@ public class CheckoutFlowManager {
         }
 
         this.productDBHelper.updateDB();
+        List<Product> restockedProducts = this.inventoryRestockManager.restockInventory();
+        return restockedProducts;
     }
 
     public static void main(String[] args) {

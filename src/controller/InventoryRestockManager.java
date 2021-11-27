@@ -4,10 +4,15 @@
  */
 package controller;
 
+import dbhelper.InventoryOrderDBHelper;
 import dbhelper.*;
 import interfaces.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.UUID;
 import model.*;
 
 /**
@@ -31,6 +36,12 @@ public class InventoryRestockManager {
         this.product = product;
         this.productDBHelper = productDBHelper;
         inventoryDBHelper = new InventoryDBHelper();
+  
+    }
+    
+    public void readDB() {
+        this.productDBHelper.readBulkProductDB();
+        this.productDBHelper.readRegularProductDB();
     }
 
     public InventoryOrder getInventoryOrder() {
@@ -52,10 +63,14 @@ public class InventoryRestockManager {
                 restockedProducts.add(bulkProd);
             }
         }
+        InventoryOrder order = new InventoryOrder(UUID.randomUUID(), restockedProducts);
+        InventoryOrderDBHelper db = new InventoryOrderDBHelper();
+        db.updateInventoryOrderDB(order);
 
         return restockedProducts;
     }
 
+ 
     public static void main(String[] args) {
         ProductDBHelper db = new ProductDBHelper();
         db.readBulkProductDB();
