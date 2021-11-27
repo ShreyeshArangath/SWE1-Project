@@ -196,7 +196,7 @@ public class Receipt3 extends javax.swing.JFrame {
 
         // TODO: Add code to restock inventory here 
         StringBuilder sb = new StringBuilder();
-        sb.append("The following items need to be restocked.");
+        sb.append("The following items need to be restocked. \n");
 
         List<Product> restockedItems = this.checkoutFlowManager.updateInventory();
         for (Product product : restockedItems) {

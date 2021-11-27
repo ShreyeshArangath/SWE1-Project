@@ -4,10 +4,12 @@
  */
 package controller;
 
+import dbhelper.InventoryOrderDBHelper;
 import dbhelper.*;
 import interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import model.*;
 
 /**
@@ -52,6 +54,9 @@ public class InventoryRestockManager {
                 restockedProducts.add(bulkProd);
             }
         }
+        InventoryOrder order = new InventoryOrder(UUID.randomUUID(), restockedProducts);
+        InventoryOrderDBHelper db = new InventoryOrderDBHelper();
+        db.updateInventoryOrderDB(order);
 
         return restockedProducts;
     }
