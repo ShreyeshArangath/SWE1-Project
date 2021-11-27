@@ -2,6 +2,7 @@ package dbhelper;
 
 
 import dbhelper.ReadFileUtil;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -60,6 +61,35 @@ public class CustomerDBHelper {
                     customer);
         }
 
+    }
+    
+    public void updateCustomerRecord(Customer customer) {
+        CustomerVerification cv = new CustomerVerification(customer.getPhoneNumber(), 
+                customer.getMemberPin());
+        this.customers.put(cv, customer);
+        this.updateCustomerDB();
+    }
+    
+    private void updateCustomerDB() {
+        WriteFileUtil wfu = new WriteFileUtil("customer.data");
+        List<String> columnData = List.of("userID", 
+                "name",
+                "phoneNumber",
+                "isLoyalCustomer",
+                "memberPin", 
+                "loyaltyPoints");
+        List<List<String>> data = new ArrayList<>();
+        
+        for (Customer customer: this.customers.values()) {
+            List<String> row = new ArrayList<>();
+            row.add(customer.getName());
+            row.add(customer.getPhoneNumber().toString());
+            row.add(customer.getIsLoyalCustomer().toString());
+            row.add(customer.getMemberPin().toString());
+            row.add(customer.getLoyaltyPoints().toString());
+            data.add(row);
+        }
+        wfu.write(columnData, data);
     }
     
     

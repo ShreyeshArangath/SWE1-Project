@@ -1,6 +1,7 @@
 
 import controller.CheckoutFlowManager;
 import java.awt.Component;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Order;
 import model.Product;
@@ -9,7 +10,6 @@ import model.Product;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author cgonz
@@ -25,23 +25,23 @@ public class Receipt extends javax.swing.JFrame {
     public Receipt(CheckoutFlowManager checkoutFlowManager, double amountPaid, double change) {
         initComponents();
         this.checkoutFlowManager = checkoutFlowManager;
-        String items = ""; 
+        String items = "";
         Order order = this.checkoutFlowManager.getOrder();
-        for(Product product: order.getItemsOrdered()){
+        for (Product product : order.getItemsOrdered()) {
             items += product.getItemDescription() + "\t\t" + product.getRetailPrice() + "\n";
         }
         Items.setText(items);
         String subtotal = String.format("%.2f", this.checkoutFlowManager.getOrder().getSubTotal());
         Subtotal.setText(subtotal);
-        
-        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage()/100
+
+        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage() / 100
                 * this.checkoutFlowManager.getOrder().getSubTotal();
         String tax = String.format("%.2f", taxValue);
         Tax.setText(tax);
-        
+
         String total = String.format("%.2f", this.checkoutFlowManager.getOrder().netTotal);
         Total.setText(total);
-        
+
         String changeAmount = String.format("%.2f", change);
         Change.setText(changeAmount);
     }
@@ -171,30 +171,33 @@ public class Receipt extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CloseTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseTillButtonActionPerformed
-        // TODO add your handling code here: 
+
+        // TODO: Add code to restock inventory here 
+        StringBuilder sb = new StringBuilder();
+        sb.append("The following items need to be restocked. \n");
+        List<Product> restockedItems = this.checkoutFlowManager.updateInventory();
+        for (Product product : restockedItems) {
+            sb.append(product.getItemDescription()).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(frame, sb.toString());
+
         int dialogButton = 0;
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to return to Checkout?","Thanks for Shopping!",dialogButton);
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to return to Checkout?", "Thanks for Shopping!", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             GUI jfrm = new GUI();
             jfrm.setVisible(true);
             this.setVisible(false);
             this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
             this.dispose();
-        }
-        else if (dialogResult == JOptionPane.NO_OPTION)
-        {
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Thanks for Shopping!");
-            if (JOptionPane.OK_OPTION == 0)
-            {
+            if (JOptionPane.OK_OPTION == 0) {
                 this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
                 this.dispose();
             }
         }
-        
-        // TODO: Add code to restock inventory here 
-        
-        
+
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         this.dispose();

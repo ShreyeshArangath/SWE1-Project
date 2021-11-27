@@ -1,6 +1,7 @@
 
 import controller.CheckoutFlowManager;
 import java.awt.Component;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Order;
 import model.Product;
@@ -165,7 +166,17 @@ public class Receipt2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CloseTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseTillButtonActionPerformed
-        // TODO add your handling code here:
+     
+        // TODO: Add code to restock inventory here 
+        StringBuilder sb = new StringBuilder();
+        sb.append("The following items need to be restocked. \n");
+
+        List<Product> restockedItems = this.checkoutFlowManager.updateInventory();
+        for (Product product : restockedItems) {
+            sb.append(product.getItemDescription()).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(frame, sb.toString());
         int dialogButton = 0;
         int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to return to Checkout?","Thanks for Shopping!",dialogButton);
         if(dialogResult == JOptionPane.YES_OPTION)
@@ -187,6 +198,7 @@ public class Receipt2 extends javax.swing.JFrame {
         }
         
         // TODO: Add code to restock inventory here 
+        this.checkoutFlowManager.updateInventory();
         
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);

@@ -74,9 +74,9 @@
                   <Component id="jScrollPane1" min="-2" pref="359" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Subtotal" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="Subtotal" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -84,9 +84,9 @@
                   <Component id="Tax" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="Total" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Total" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">

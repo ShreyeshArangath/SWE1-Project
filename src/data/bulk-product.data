@@ -1,4 +1,4 @@
-itemNumber, itemDescription, retailPrice, discountPercentage, availableUnits, needsRestock, pricePerUnit
-200, Apple, 0, 0, 100, false, 0.30
-201, Orange, 0, 0, 100, false, 0.25
-202, Grapes, 0, 15, 10, true, 0.56 
+itemNumber,itemDescription,retailPrice,discountPercentage,availableUnits,needsRestock,pricePerUnit
+200,Apple,0.0,0.0,98,false,0.3
+201,Orange,0.0,0.0,99,false,0.25
+202,Grapes,0.0,15.0,6,true,0.56
