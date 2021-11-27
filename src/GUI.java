@@ -5,8 +5,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import controller.*;
 import interfaces.*;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 import model.Product;
 
 /*
@@ -20,6 +23,7 @@ import model.Product;
 public class GUI extends javax.swing.JFrame {
 
     private Component frame;
+    
     private boolean isFirstItem;
     private CheckoutFlowManager checkoutFlowManager;
     private Scale scale;
@@ -39,6 +43,14 @@ public class GUI extends javax.swing.JFrame {
         this.customerDisplay = new CustomerDisplay();
         this.customerDisplay.setVisible(true);
         this.customerDisplay.setLocationRelativeTo(this);
+        
+             // every night at 12am you run your task
+        Timer timer = new Timer();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        timer.schedule(InventoryRestockTask.getTask(), today.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)); // period: 1 day
     }
 
     /**
