@@ -139,7 +139,6 @@ public class PaymentMethod extends javax.swing.JFrame {
     private void CashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CashButtonActionPerformed
         // TODO add your handling code here:
         CashPayment jfrm = new CashPayment(this.checkoutFlowManager);
-        jfrm.setSize(500, 300); 
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -149,7 +148,6 @@ public class PaymentMethod extends javax.swing.JFrame {
     private void CheckButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckButtonActionPerformed
         // TODO add your handling code here:
         CheckPayment jfrm = new CheckPayment(this.checkoutFlowManager);
-        jfrm.setSize(300, 300); 
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -163,7 +161,6 @@ public class PaymentMethod extends javax.swing.JFrame {
         if(dialogResult == JOptionPane.YES_OPTION)
         {
             CardPayment jfrm = new CardPayment(this.checkoutFlowManager);
-            jfrm.setSize(530, 400);
             jfrm.setVisible(true);
             jfrm.setLocationRelativeTo(null);
             jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -175,7 +172,6 @@ public class PaymentMethod extends javax.swing.JFrame {
             if (JOptionPane.OK_OPTION == 0)
             {
                 CardPayment2 jfrm = new CardPayment2(this.checkoutFlowManager);
-                jfrm.setSize(350, 300); 
                 jfrm.setVisible(true);
                 this.setVisible(false);
                 this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);

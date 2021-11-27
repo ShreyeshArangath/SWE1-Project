@@ -79,7 +79,6 @@ public class CheckPayment extends javax.swing.JFrame {
     private void ScanCheckButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanCheckButtonActionPerformed
         // TODO add your handling code here:
         CheckInfo jfrm = new CheckInfo(this.checkoutFlowManager);
-        jfrm.setSize(500, 400); 
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);

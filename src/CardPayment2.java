@@ -104,7 +104,6 @@ public class CardPayment2 extends javax.swing.JFrame {
     private void PrintReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintReceiptButtonActionPerformed
         // TODO add your handling code here:
         Receipt3 jfrm = new Receipt3(this.checkoutFlowManager, "CREDIT");
-        jfrm.setSize(400, 600); 
         jfrm.setVisible(true);
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -120,7 +119,6 @@ public class CardPayment2 extends javax.swing.JFrame {
         if (cardNo == 0L) {
              JOptionPane.showMessageDialog(null, "Something went wrong, order canceled");
             GUI jfrm = new GUI();
-            jfrm.setSize(600, 400);
             jfrm.setVisible(true);
             
             this.setVisible(false);

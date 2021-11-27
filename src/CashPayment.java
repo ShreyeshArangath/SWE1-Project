@@ -103,7 +103,6 @@ public class CashPayment extends javax.swing.JFrame {
         Double amountPaid = Double.parseDouble(AmountDisplayed.getText());
         double change = this.checkoutFlowManager.processCashPayment(this.checkoutFlowManager.getOrder().netTotal, amountPaid);
         Receipt jfrm = new Receipt(this.checkoutFlowManager, amountPaid, change);
-        jfrm.setSize(400, 500); 
         jfrm.setVisible(true);
         this.setVisible(false);       
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);

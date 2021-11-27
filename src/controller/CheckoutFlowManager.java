@@ -47,6 +47,13 @@ public class CheckoutFlowManager {
         int index = rand.nextInt(length);
         return (String) productDBHelper.getRegularProducts().keySet().toArray()[index];
     }
+    
+    public String getRandomBulkItem() {
+        int length = productDBHelper.getBulkProducts().keySet().toArray().length;
+        Random rand = new Random();
+        int index = rand.nextInt(length);
+        return (String) productDBHelper.getBulkProducts().keySet().toArray()[index];
+    }
 
     public Product getProduct(String productId) {
         return this.productDBHelper.getProduct(REGULAR, productId);

@@ -43,19 +43,25 @@ public class Checkout {
     }
 
     public CustomerOrder execute(double salesTaxPercentage) {
-        double total = 0;
-        double totalDiscountAmount = 0;
-        for (Product product : customerOrder.getItemsOrdered()) {
-            double retailPrice = product.getRetailPrice();
-            double discountAmount = product.getDiscountPercentage() * retailPrice;
-            total += retailPrice;
-            totalDiscountAmount += discountAmount;
-        }
-
-        customerOrder.setDiscountTotal(totalDiscountAmount);
-        customerOrder.setSubTotal(total);
-        customerOrder.setSalesTaxPercentage(salesTaxPercentage);
-        customerOrder.setNetTotal();
+//        double total = 0;
+//        double totalDiscountAmount = 0;
+//        for (Product product : customerOrder.getItemsOrdered()) {
+//            
+//            double retailPrice = product.getRetailPrice();
+//            double discountAmount = product.getDiscountPercentage()/100 * retailPrice;
+//            total = total + retailPrice;
+//            totalDiscountAmount = totalDiscountAmount + discountAmount;
+//            System.out.println("Retail Price: " + retailPrice);
+//            System.out.println("DiscountAmount: " + discountAmount);
+//            System.out.println("Total: " + total);
+//            System.out.println("Total Discount: " + totalDiscountAmount);
+//        }
+//
+//        customerOrder.setDiscountTotal(totalDiscountAmount);
+//        customerOrder.setSubTotal(total);
+//        customerOrder.setSalesTaxPercentage(salesTaxPercentage);
+//        customerOrder.setNetTotal();
+           customerOrder.processOrder();
 
         if (customer.getIsLoyalCustomer()) {
             this.customer = this.addLoyaltyCustomerCreditPoints();

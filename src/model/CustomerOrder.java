@@ -26,8 +26,24 @@ public class CustomerOrder extends Order {
         super(orderNumber);
     }
 
+    public void processOrder(){
+        double total = 0;
+        double totalDiscountAmount = 0;
+        for (Product product : this.getItemsOrdered()) {
+            
+            double retailPrice = product.getRetailPrice();
+            double discountAmount = product.getDiscountPercentage()/100 * retailPrice;
+            total = total + retailPrice;
+            totalDiscountAmount = totalDiscountAmount + discountAmount;
+        }
+
+        this.setDiscountTotal(totalDiscountAmount);
+        this.setSubTotal(total);
+        this.setSalesTaxPercentage(salesTaxPercentage);
+        this.setNetTotal();
+    }
     private double _calculateNetTotal() {
-        return this.getSubTotal() - this.getDiscountTotal() - this.salesTaxPercentage/100 * this.getSubTotal();
+        return this.getSubTotal() - this.getDiscountTotal() + this.salesTaxPercentage/100 * this.getSubTotal();
     }
 
     public void setSalesTaxPercentage(double salesTaxPercentage) {
