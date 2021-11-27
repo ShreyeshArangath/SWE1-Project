@@ -9,11 +9,13 @@
  */
 public class VerifyCustomer extends javax.swing.JFrame {
 
+    private GUI gui;
     /**
      * Creates new form VerifyCustomer
      */
-    public VerifyCustomer() {
+    public VerifyCustomer(GUI gui) {
         initComponents();
+        this.gui = gui;
     }
 
     /**
@@ -94,6 +96,8 @@ public class VerifyCustomer extends javax.swing.JFrame {
 
     private void CheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutButtonActionPerformed
         // TODO add your handling code here:
+        this.gui.memberPin = Integer.parseInt(this.getMemberPin());
+        this.gui.phoneNumber = Integer.parseInt(this.getPhoneNumber());
         this.setVisible(false);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.dispose();
@@ -135,7 +139,7 @@ public class VerifyCustomer extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new VerifyCustomer().setVisible(true);
+            new VerifyCustomer(new GUI()).setVisible(true);
         });
     }
 

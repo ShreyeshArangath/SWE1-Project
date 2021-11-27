@@ -29,8 +29,8 @@ public class GUI extends javax.swing.JFrame {
     private Scale scale;
     private CustomerDisplay customerDisplay;
     // TODO: Add a label that says loyalty customer points added 
-    private int phoneNumber;
-    private int memberPin;
+    public int phoneNumber;
+    int memberPin;
 
     /**
      * Creates new form GUI
@@ -327,15 +327,12 @@ public class GUI extends javax.swing.JFrame {
         int dialogButton = 0;
         int dialogResult = JOptionPane.showConfirmDialog(null, "Are you a Loyal Customer?", "Warning", dialogButton);
         if (dialogResult == JOptionPane.YES_OPTION) {
-            VerifyCustomer jfrm = new VerifyCustomer();
+            VerifyCustomer jfrm = new VerifyCustomer(this);
             jfrm.setVisible(true);
             jfrm.setLocationRelativeTo(null);
             jfrm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jfrm.setVisible(true);
-            this.memberPin = Integer.parseInt(jfrm.getMemberPin());
-            this.phoneNumber = Integer.parseInt(jfrm.getPhoneNumber());
             // TODO: Add member points        
-
         } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Return to Checkout");
         }
