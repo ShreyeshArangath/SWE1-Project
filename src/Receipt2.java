@@ -10,7 +10,6 @@ import model.Product;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author cgonz
@@ -19,31 +18,30 @@ public class Receipt2 extends javax.swing.JFrame {
 
     private Component frame;
     private CheckoutFlowManager checkoutFlowManager;
-    
 
     /**
      * Creates new form Receipt2
      */
     public Receipt2(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
-         this.checkoutFlowManager = checkoutFlowManager;
-        String items = ""; 
+        this.checkoutFlowManager = checkoutFlowManager;
+        String items = "";
         Order order = this.checkoutFlowManager.getOrder();
-        for(Product product: order.getItemsOrdered()){
+        for (Product product : order.getItemsOrdered()) {
             items += product.getItemDescription() + "\t\t" + product.getRetailPrice() + "\n";
         }
         Items.setText(items);
         String subtotal = String.format("%.2f", this.checkoutFlowManager.getOrder().getSubTotal());
         Subtotal.setText(subtotal);
-        
-        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage()/100
+
+        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage() / 100
                 * this.checkoutFlowManager.getOrder().getSubTotal();
         String tax = String.format("%.2f", taxValue);
         Tax.setText(tax);
-        
+
         String total = String.format("%.2f", this.checkoutFlowManager.getOrder().netTotal);
         Total.setText(total);
-        
+
     }
 
     /**
@@ -166,40 +164,39 @@ public class Receipt2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CloseTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseTillButtonActionPerformed
-     
-        // TODO: Add code to restock inventory here 
-        StringBuilder sb = new StringBuilder();
-        sb.append("The following items need to be restocked. \n");
 
+        // TODO: Add code to restock inventory here 
         List<Product> restockedItems = this.checkoutFlowManager.updateInventory();
-        for (Product product : restockedItems) {
-            sb.append(product.getItemDescription()).append("\n");
+        if (restockedItems.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("The following items need to be restocked. \n");
+
+            for (Product product : restockedItems) {
+                sb.append(product.getItemDescription()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(frame, sb.toString());
         }
 
-        JOptionPane.showMessageDialog(frame, sb.toString());
         int dialogButton = 0;
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to return to Checkout?","Thanks for Shopping!",dialogButton);
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to return to Checkout?", "Thanks for Shopping!", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             GUI jfrm = new GUI();
             jfrm.setVisible(true);
             this.setVisible(false);
             this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
             this.dispose();
-        }
-        else if (dialogResult == JOptionPane.NO_OPTION)
-        {
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Thanks for Shopping!");
-            if (JOptionPane.OK_OPTION == 0)
-            {
+            if (JOptionPane.OK_OPTION == 0) {
                 this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
                 this.dispose();
             }
         }
-        
+
         // TODO: Add code to restock inventory here 
         this.checkoutFlowManager.updateInventory();
-        
+
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         this.dispose();

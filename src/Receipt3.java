@@ -195,15 +195,18 @@ public class Receipt3 extends javax.swing.JFrame {
     private void CloseTillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseTillButtonActionPerformed
 
         // TODO: Add code to restock inventory here 
-        StringBuilder sb = new StringBuilder();
-        sb.append("The following items need to be restocked. \n");
-
         List<Product> restockedItems = this.checkoutFlowManager.updateInventory();
-        for (Product product : restockedItems) {
-            sb.append(product.getItemDescription()).append("\n");
+        if (restockedItems.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("The following items need to be restocked. \n");
+
+            for (Product product : restockedItems) {
+                sb.append(product.getItemDescription()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(frame, sb.toString());
         }
 
-        JOptionPane.showMessageDialog(frame, sb.toString());
         int dialogButton = 0;
         int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to return to Checkout?","Thanks for Shopping!",dialogButton);
         if(dialogResult == JOptionPane.YES_OPTION)
