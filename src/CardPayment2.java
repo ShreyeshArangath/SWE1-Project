@@ -116,6 +116,9 @@ public class CardPayment2 extends javax.swing.JFrame {
         Long cardNo = bank.getCardDBHelper().getRandomCreditCardNumber();
 
         CardNumber.setText(Long.toString(cardNo));
+        double amountDue = this.checkoutFlowManager.getOrder().netTotal;
+        double amountPaid = amountDue;
+        this.checkoutFlowManager.processCreditCardPayment(cardNo, amountDue, amountPaid);
         if (cardNo == 0L) {
              JOptionPane.showMessageDialog(null, "Something went wrong, order canceled");
             GUI jfrm = new GUI();

@@ -3,6 +3,7 @@ import controller.CheckoutFlowManager;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Customer;
 import model.Order;
 import model.Product;
 
@@ -25,10 +26,11 @@ public class Receipt2 extends javax.swing.JFrame {
     public Receipt2(CheckoutFlowManager checkoutFlowManager) {
         initComponents();
         this.checkoutFlowManager = checkoutFlowManager;
-        String items = "";
+                String items = "";
         Order order = this.checkoutFlowManager.getOrder();
         for (Product product : order.getItemsOrdered()) {
-            items += product.getItemDescription() + "\t\t" + product.getRetailPrice() + "\n";
+            String itemPrice = String.format("%.2f", product.getRetailPrice());
+            items += product.getItemDescription() + "\t\t" + itemPrice + "\n";
         }
         Items.setText(items);
         String subtotal = String.format("%.2f", this.checkoutFlowManager.getOrder().getSubTotal());
@@ -176,6 +178,11 @@ public class Receipt2 extends javax.swing.JFrame {
             }
 
             JOptionPane.showMessageDialog(frame, sb.toString());
+        }
+        
+         if (this.checkoutFlowManager.loyaltyPointsFlowManager.getCustomer()!=null){
+            Customer customer = this.checkoutFlowManager.loyaltyPointsFlowManager.getCustomer();
+            JOptionPane.showMessageDialog(frame, "Loyalty Points have been added to " + customer.getName() + "\'s account" );
         }
 
         int dialogButton = 0;

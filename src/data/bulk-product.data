@@ -1,4 +1,4 @@
 itemNumber,itemDescription,retailPrice,discountPercentage,availableUnits,needsRestock,pricePerUnit
-200,Apple,1.8413664643152114,0.0,97,false,0.3
-201,Orange,2.347774734118093,0.0,96,false,0.25
-202,Grapes,0.0,15.0,6,true,0.56
+200,Apple,0.0,0.0,93,false,0.3
+201,Orange,0.0,0.0,89,false,0.25
+202,Grapes,0.0,15.0,15,true,0.56

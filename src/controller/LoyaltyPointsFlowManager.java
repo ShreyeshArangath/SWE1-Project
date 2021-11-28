@@ -10,7 +10,7 @@ import model.*;
  * @author shreyesh
  */
 public class LoyaltyPointsFlowManager {
-    private Customer customer;
+    private Customer customer = null;
     
     public LoyaltyPointsFlowManager() {
     }
@@ -19,7 +19,7 @@ public class LoyaltyPointsFlowManager {
         this.customer = customer;
     }
     
-    public Customer getCustomer(Customer customer) {
+    public Customer getCustomer() {
         return this.customer;
     }
     public Customer addPointsToAccount(int newPoints) {

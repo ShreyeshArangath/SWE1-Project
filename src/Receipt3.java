@@ -3,6 +3,7 @@ import controller.CheckoutFlowManager;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Customer;
 import model.Order;
 import model.Product;
 
@@ -10,7 +11,6 @@ import model.Product;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author cgonz
@@ -25,37 +25,40 @@ public class Receipt3 extends javax.swing.JFrame {
      */
     public Receipt3(CheckoutFlowManager checkoutFlowManager, String type) {
         initComponents();
-          this.checkoutFlowManager = checkoutFlowManager;
-        String items = ""; 
+        this.checkoutFlowManager = checkoutFlowManager;
+        String items = "";
         Order order = this.checkoutFlowManager.getOrder();
-        for(Product product: order.getItemsOrdered()){
-            items += product.getItemDescription() + "\t\t" + product.getRetailPrice() + "\n";
+        for (Product product : order.getItemsOrdered()) {
+            String itemPrice = String.format("%.2f", product.getRetailPrice());
+            items += product.getItemDescription() + "\t\t" + itemPrice + "\n";
         }
         Items.setText(items);
+        
         String subtotal = String.format("%.2f", this.checkoutFlowManager.getOrder().getSubTotal());
         Subtotal.setText(subtotal);
-        
-        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage()/100
+
+        Double taxValue = this.checkoutFlowManager.getOrder().getSalesTaxPercentage() / 100
                 * this.checkoutFlowManager.getOrder().getSubTotal();
         String tax = String.format("%.2f", taxValue);
         Tax.setText(tax);
-        
+
         String total = String.format("%.2f", this.checkoutFlowManager.getOrder().netTotal);
         Total.setText(total);
-        
-        if (type == "DEBIT"){
+
+        if (type == "DEBIT") {
             String authNumber = this.checkoutFlowManager.getPaymentFlowManager().getDebitCard().authorizeDebit().toString();
-        AuthorizationNumber.setText(authNumber);
+            AuthorizationNumber.setText(authNumber);
+            String cardNumber = Long.toString(this.checkoutFlowManager.getPaymentFlowManager().getDebitCard().getCardNumber());
+            CardNumber.setText(cardNumber);
+
+        } else {
+            String authNumber = this.checkoutFlowManager.getPaymentFlowManager().getCreditCard().authorizeCredit().toString();
+            AuthorizationNumber.setText(authNumber);
+            String cardNumber = Long.toString(this.checkoutFlowManager.getPaymentFlowManager().getCreditCard().getCardNumber());
+            CardNumber.setText(cardNumber);
+
         }
-        else {
-             String authNumber = this.checkoutFlowManager.getPaymentFlowManager().getCreditCard().authorizeCredit().toString();
-        AuthorizationNumber.setText(authNumber);
-        }
-        
-        
-        String cardNumber = Long.toString(this.checkoutFlowManager.getPaymentFlowManager().getDebitCard().getCardNumber());
-        CardNumber.setText(cardNumber);
-        
+
     }
 
     /**
@@ -207,28 +210,28 @@ public class Receipt3 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, sb.toString());
         }
 
+         if (this.checkoutFlowManager.loyaltyPointsFlowManager.getCustomer()!=null){
+            Customer customer = this.checkoutFlowManager.loyaltyPointsFlowManager.getCustomer();
+            JOptionPane.showMessageDialog(frame, "Loyalty Points have been added to " + customer.getName() + "\'s account" );
+        }
+         
         int dialogButton = 0;
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to return to Checkout?","Thanks for Shopping!",dialogButton);
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to return to Checkout?", "Thanks for Shopping!", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             GUI jfrm = new GUI();
             jfrm.setVisible(true);
             this.setVisible(false);
             this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
             this.dispose();
-        }
-        else if (dialogResult == JOptionPane.NO_OPTION)
-        {
+        } else if (dialogResult == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(frame, "Thanks for Shopping!");
-            if (JOptionPane.OK_OPTION == 0)
-            {
+            if (JOptionPane.OK_OPTION == 0) {
                 this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
                 this.dispose();
             }
         }
-        
+
         // TODO: Add code to restock inventory here 
-        
         this.checkoutFlowManager.updateInventory();
         this.setVisible(false);
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
