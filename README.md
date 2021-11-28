@@ -35,7 +35,10 @@ Otherwise, download netbeans and import the project.
 
 
 ## Test data 
-
+* Scan Button generates random item that will be presented in the Shopping Cart
+* (Regular) Items 100-102 were tested/can be tested
+* (Bulk) Items 200-202 were tested/can be tested
+* Loyal Customer Information: 999999999, 1000
 
 # Git Basics (TEAM)
 
