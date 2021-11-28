@@ -290,7 +290,7 @@ public class GUI extends javax.swing.JFrame {
         String existing = items.getText();
         StringBuilder newLine = new StringBuilder();
         newLine.append(productName).append("\t\t")
-                .append(Double.toString(productPrice))
+                .append(String.format("%.2f", productPrice))
                 .append("\n");
         StringBuilder finalList = new StringBuilder();
         finalList.append(existing).append(newLine);
@@ -301,7 +301,7 @@ public class GUI extends javax.swing.JFrame {
     private void TotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalButtonActionPerformed
 
         // TODO add your handling code here:
-        PaymentMethod jfrm = new PaymentMethod(this.checkoutFlowManager, this.memberPin, this.phoneNumber);
+        PaymentMethod jfrm = new PaymentMethod(this.checkoutFlowManager, this.phoneNumber, this.memberPin);
         jfrm.setVisible(true);
 
         // Customer Display
