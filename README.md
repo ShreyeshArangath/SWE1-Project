@@ -14,6 +14,9 @@ Example:
 java -jar "/Users/shreyesh/NetBeansProjects/SWE1-Project/dist/SWE1-Project.jar"
 ```
 The JAR file is included as part of the submission. 
+Please head over to `SWE1-Project/dist/SWE1-Project.jar` to access the JAR file and run the code. 
+
+
 Otherwise, download netbeans and import the project.
 
 ## Assumptions
