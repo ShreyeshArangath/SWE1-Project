@@ -14,8 +14,6 @@ Example:
 java -jar "/Users/shreyesh/NetBeansProjects/SWE1-Project/dist/SWE1-Project.jar"
 ```
 The JAR file is included as part of the submission. 
-Please head over to `SWE1-Project/dist/SWE1-Project.jar` to access the JAR file and run the code. 
-
 
 Otherwise, download netbeans and import the project.
 
@@ -36,6 +34,14 @@ Otherwise, download netbeans and import the project.
 
 ## Test data 
 
+Valid Item IDs
+* Regular Item - 100, 101, 102 
+* Bulk Item - 200, 201, 202
+* Customer: 
+    * Phone Number: 999999999
+    * PIN: 1000
+* Debit Card: 
+    * The first four digits of the debit card is the PIN for this simulation 
 
 # Git Basics (TEAM)
 
